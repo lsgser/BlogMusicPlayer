@@ -13,7 +13,6 @@
       <input type="range" name="volume" style="width:90%" min="0" max="10" class="volume" value="5" />
     </center>
   </nav>
-
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="true">
     <img src="/img/albums/88bc762dda179bb7d4a9b199f6b0e71a.jpg" class="song-image" width="79"  height="79"/>
     <center class="centering"> 
