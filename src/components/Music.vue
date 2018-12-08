@@ -77,6 +77,22 @@
 
 <script>
 	export default{
-		name:'Music'
+		name:'Music',
+		computed:
+		{
+			
+		},
+		methods:
+		{
+
+		},
+		beforeMount:function()
+		{
+			
+		},
+		data:function()
+		{
+			return {albums:[],singles:[]}
+		}
 	}
 </script>

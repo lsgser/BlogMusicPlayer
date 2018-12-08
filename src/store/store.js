@@ -6,6 +6,8 @@ Vue.use(Vuex)
 const state={
 	albums:[],
 	songs:[],
+	songCover:'',
+	singleSong:[],
 	songID:'',
 	albumID:'',
 	isPlaying:false,
@@ -44,6 +46,14 @@ const getters={
 	getAlbumID()
 	{
 		return state.songID
+	},
+	getSongCover()
+	{
+		return state.songCover
+	},
+	getSingleSong()
+	{
+		return state.singleSong
 	}
 }
 
