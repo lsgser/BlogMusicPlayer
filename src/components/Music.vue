@@ -80,7 +80,7 @@
 		name:'Music',
 		computed:
 		{
-			
+
 		},
 		methods:
 		{
@@ -88,11 +88,12 @@
 		},
 		beforeMount:function()
 		{
-			
+			this.name = this.$route.params.name
+
 		},
 		data:function()
 		{
-			return {albums:[],singles:[]}
+			return {name:'',albums:[],singles:[]}
 		}
 	}
 </script>
