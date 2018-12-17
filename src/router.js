@@ -12,8 +12,8 @@ export default new Router({
 	base:__dirname,
 	routes:[
 		{path:'/:name',name:'home',component:Home},
-		{path:'/music-list/:name',name:'music-list',component:Music},
-		{path:'/music-play/:name',name:'music-play',component:PlayMusic},
-		{path:'/videos/:name',name:'videos',component:Videos}
+		{path:'/:name/music-list/',name:'music-list',component:Music},
+		{path:'/:name/music-play/',name:'music-play',component:PlayMusic},
+		{path:'/:name/videos/',name:'videos',component:Videos}
 	]
 })

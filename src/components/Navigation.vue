@@ -36,15 +36,15 @@ export default {
     },
     Music()
     {
-      this.$router.replace({path:`/music-list/${this.name}`})
+      this.$router.replace({path:`/${this.name}/music-list`})
     },
     Videos()
     {
-      this.$router.replace({path:`/videos/${this.name}`})
+      this.$router.replace({path:`/${this.name}/videos`})
     },
     Contacts()
     {
-      this.$router.replace({path:`/contacts/${this.name}`})
+      this.$router.replace({path:`/${this.name}/contacts`})
     }
 	},
   beforeMount:function()

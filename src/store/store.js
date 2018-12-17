@@ -15,7 +15,12 @@ const state={
 	firstPlay:false,
 }
 const mutations={
-
+	SET_ALBUMS(state,data)
+	{
+		data.data.forEach(function(element){
+			state.albums.push(element)
+		})
+	}
 }
 
 const getters={
