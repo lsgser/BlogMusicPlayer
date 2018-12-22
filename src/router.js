@@ -13,7 +13,7 @@ export default new Router({
 	routes:[
 		{path:'/:name',name:'home',component:Home},
 		{path:'/:name/music-list/',name:'music-list',component:Music},
-		{path:'/:name/music-play/',name:'music-play',component:PlayMusic},
+		{path:'/:name/music-play/:id',name:'music-play',component:PlayMusic},
 		{path:'/:name/videos/',name:'videos',component:Videos}
 	]
 })

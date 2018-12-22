@@ -4,34 +4,12 @@
 	<br/>
 	<h3>Albums</h3>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
 			<div class="card" style="width:20rem">
-			<img class="card-img-top" src="/img/albums/0d6653bb2561cee52e502159b8318f89.jpg" alt="" />
+			<img class="card-img-top" v-bind:src="a.album_cover" alt="" />
 			<div class="card-body">
-			<h5 class="card-title">Tetsuo & Youth</h5>
-			<p class="card-text">Album Description</p>
-			<a href="#" class="btn btn-primary">Go To Album Songs</a>
-			</div>
-			</div>
-		</div>
-	</div>
-		<!--
-		<div class="col-sm-4">
-			<div class="card" style="width:20rem">
-			<img class="card-img-top" src="/img/albums/f07522244640ee7ce3e7da20abc5cf82.jpg" alt="" />
-			<div class="card-body">
-			<h5 class="card-title">DAYTONA</h5>
-			<p class="card-text">Album Description</p>
-			<a href="#" class="btn btn-primary">Go To Album Songs</a>
-			</div>
-			</div>
-		</div>
-		<div class="col-sm-4"> 
-			<div class="card" style="width:20rem">
-			<img class="card-img-top" src="/img/albums/d47593e6d7df2d1bd9b01b7ef8195ff4.jpg" alt="" />
-			<div class="card-body">
-			<h5 class="card-title">The Waters</h5>
-			<p class="card-text">Album Description</p>
+			<h5 class="card-title">{{a.album_name}}</h5>
+			<p class="card-text">Genre:{{a.genre}}</p>
 			<a href="#" class="btn btn-primary">Go To Album Songs</a>
 			</div>
 			</div>
@@ -40,49 +18,41 @@
 	<br>
 	<h3>Singles</h3>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-4" v-for="(s,index) in getSingleSong" :key ="index">
 			<div class="card" style="width:20rem">
-			<img class="card-img-top" src="/img/albums/d2458a8d3df433abe512a6d1c8147107.jpg" alt="" />
+			<img class="card-img-top" v-bind:src="s.art_cover" alt="" />
 			<div class="card-body">
-			<h5 class="card-title">BANG!BOOM</h5>
-			<p class="card-text">Album Description</p>
-			<a href="#" class="btn btn-primary">Go To Song</a>
+			<h5 class="card-title">Artist(s):{{s.artists}}</h5>
+			<p class="card-text">Genre:{{s.genre}}</p>
+			<a href="#" class="btn btn-primary">Play Song</a>
 			</div>
 			</div>
 		</div>
 	</div>
-	-->
 </div>
 </template>
 
 <script>
-	import axios from 'axios';	
+	//import axios from 'axios';	
 	export default{
 		name:'Music',
 		computed:
 		{
-
+			getAlbums(){
+				return this.$store.getters.getAlbums
+			},
+			getSingleSong(){
+				return this.$store.getters.getSingleSong
+			}
 		},
 		methods:
 		{
-
+			
 		},
 		beforeMount:function()
 		{
 			this.name = this.$route.params.name
-			/*all the albums*/
-
-			axios.get('http://localhost/Balfo/api/view/albums/get.php?name='+this.name+'').then(function(res){
-				//console.log(res.data)
-				console.log(this.$store.state.isPlaying)
-				this.$store.commit('SET_ALBUMS',res)
-			}).catch(function(err){
-				//console.log(err)
-			})
-			/*all the single songs*/
-			axios.get('http://localhost/Balfo/api/view/songs/get.php?name='+this.name+'&album=0').then(function(res){
-				//console.log(res.data)
-			})
+			this.$store.dispatch('loadData',this.name)
 		},
 		data:function()
 		{

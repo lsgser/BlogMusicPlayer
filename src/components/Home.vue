@@ -11,13 +11,12 @@
         <i class="fas fa-play fa-2x"></i>
       </button>
       -->
-      <img src="/img/albums/d47593e6d7df2d1bd9b01b7ef8195ff4.jpg" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
+      <img v-bind:src="getUser[0].picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
       <hr/>
       <br/>
-      <h4>About Balfo</h4>
+      <h4>About {{getUser[0].artist_name}}</h4>
       <p>
-        Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, 
-        and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop
+        {{getUser[0].about}}
       </p>
     </center>
     </div>
@@ -60,7 +59,28 @@
 
 <script>
 export default {
-  name:'Home'
+  name:'Home',
+  methods:{
+
+  },
+  computed:{
+    getUser()
+    {
+      return this.$store.getters.getUser
+    }
+  },
+  beforeMount:function()
+  {
+    if(this.$route.params.name)
+    {
+      this.name = this.$route.params.name
+      this.$store.dispatch('loadUser',this.name)
+    }
+  },
+  data:function()
+  {
+    return {name:''}
+  }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

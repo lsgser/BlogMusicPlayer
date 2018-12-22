@@ -15,10 +15,6 @@ export default {
   components: {
     Navigation,
     MusicPlayer   
-  },
-  beforeMount:function()
-  {
-    
   }
 }
 

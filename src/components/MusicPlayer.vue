@@ -1,6 +1,6 @@
 <template>
-<div>
-  <center v-show="true">
+<div v-show="getFirstPlay || isPlaying">
+  <center>
     <div class="progress duration">
       <div class="progress-bar duration" style="width: 30%;"></div>
     </div>
@@ -54,7 +54,15 @@ export default {
     {
 
     }
-	}  
+	},
+  computed:{
+    getFirstPlay(){
+      return this.$store.getters.getFirstPlay
+    },
+    isPlaying(){
+      return this.$store.getters.isPlaying
+    }
+  }  
 }
 </script>
 
