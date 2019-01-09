@@ -25,20 +25,14 @@
   <section class="my-work">
     <div class="container">
     <center>
-      <h4>Some Of My Musical Works</h4>
+      <h4>My Musical Works</h4>
       <!--
       <i class="fas fa-play" ></i>
       --> 
       <div id="carouselControl" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="img-fluid" src="/img/albums/88bc762dda179bb7d4a9b199f6b0e71a.jpg" alt="First slide"/>
-            </div>
-            <div class="carousel-item">
-               <img class="img-fluid" src="/img/albums/4afaf1ec09752a87f56f2a05a8a05acc.jpg" alt="Second slide"/>
-            </div>
-            <div class="carousel-item">
-                <img class="img-fluid" src="/img/albums/0d6653bb2561cee52e502159b8318f89.jpg" alt="Third slide"/>
+            <div class="carousel-item" v-for="(a,index) in getAlbums" :key="a.id" :class="{active:index==0}">
+                <img class="img-fluid" :src="a.album_cover" alt="" width="400" height="400" />
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="prev">
@@ -67,6 +61,10 @@ export default {
     getUser()
     {
       return this.$store.getters.getUser
+    },
+    getAlbums()
+    {
+      return this.$store.getters.getAlbums
     }
   },
   beforeMount:function()
@@ -75,6 +73,7 @@ export default {
     {
       this.name = this.$route.params.name
       this.$store.dispatch('loadUser',this.name)
+      this.$store.dispatch('loadData',this.name)
     }
   },
   data:function()

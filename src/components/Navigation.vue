@@ -4,7 +4,7 @@
   <div>Post: {{ $route.params.name }}</div>
   -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <router-link class="navbar-brand" to="/" @click.native="Home">ROCABALFO</router-link>
+  <router-link class="navbar-brand" to="/" @click.native="Home">{{name}}</router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,24 +32,60 @@ export default {
 	methods:{
 		Home()
     {
-      this.$router.replace({path:`/${this.name}`})
+      if(this.name!=='6ITY GANG')
+      {
+        this.$router.replace({path:`/${this.name}`})  
+      }
+      else
+      {
+        this.$router.replace({path:'/'})
+      }
     },
     Music()
     {
-      this.$router.replace({path:`/${this.name}/music-list`})
+      if(this.name!=='6ITY GANG')
+      {
+        this.$router.replace({path:`/${this.name}/music-list`})
+      }
+      else
+      {
+        this.$router.replace({path:`/music-list`}) 
+      }
     },
     Videos()
     {
-      this.$router.replace({path:`/${this.name}/videos`})
+      if(this.name!=='6ITY GANG')
+      {
+        this.$router.replace({path:`/${this.name}/videos`})
+      }
+      else
+      {
+        this.$router.replace({path:`/videos`}) 
+      }
     },
     Contacts()
     {
-      this.$router.replace({path:`/${this.name}/contacts`})
+      if(this.name!=='6ITY GANG')
+      {
+        this.$router.replace({path:`/${this.name}/contacts`})
+      }
+      else
+      {
+        this.$router.replace({path:`/contacts`}) 
+      }
+      
     }
 	},
   beforeMount:function()
   {
-    this.name = this.$route.params.name
+    if(this.$route.params.name)
+    {
+      this.name = this.$route.params.name.toUpperCase()  
+    }
+    else
+    {
+      this.name ='6ITY GANG'
+    }
   },
   data:function()
   {
