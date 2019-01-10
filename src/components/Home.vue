@@ -15,7 +15,7 @@
       <hr/>
       <br/>
       <h4>About {{getUser[0].artist_name}}</h4>
-      <p>
+      <p v-html="getUser[0].about">
         {{getUser[0].about}}
       </p>
     </center>
