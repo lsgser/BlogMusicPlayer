@@ -6,18 +6,15 @@
   <section class="container">
     <div class="container">
     <center>
-      <!--
-      <button type="button" class="btn btn-light">
-        <i class="fas fa-play fa-2x"></i>
-      </button>
-      -->
-      <img v-bind:src="getUser[0].picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
-      <hr/>
-      <br/>
-      <h4>About {{getUser[0].artist_name}}</h4>
-      <p v-html="getUser[0].about">
-        {{getUser[0].about}}
-      </p>
+      <div v-for="(u,index) in getUser" :key="index">
+        <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
+        <hr/>
+        <br/>
+        <h4><u>About {{u.artist_name}}</u></h4>
+        <p v-html="u.about">
+          {{u.about}}
+        </p>
+      </div>
     </center>
     </div>
   </section>
@@ -25,10 +22,7 @@
   <section class="my-work">
     <div class="container">
     <center>
-      <h4>My Musical Works</h4>
-      <!--
-      <i class="fas fa-play" ></i>
-      --> 
+      <h4><u>My Music</u></h4>
       <div id="carouselControl" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item" v-for="(a,index) in getAlbums" :key="a.id" :class="{active:index==0}">

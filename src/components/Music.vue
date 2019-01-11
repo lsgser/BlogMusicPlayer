@@ -10,7 +10,7 @@
 			<div class="card-body">
 			<h5 class="card-title">{{a.album_name}}</h5>
 			<p class="card-text">Genre:{{a.genre}}</p>
-			<a href="#" class="btn btn-primary">Go To Album Songs</a>
+			<a href="#" class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</a>
 			</div>
 			</div>
 		</div>
@@ -24,7 +24,8 @@
 			<div class="card-body">
 			<h5 class="card-title">Artist(s):{{s.artists}}</h5>
 			<p class="card-text">Genre:{{s.genre}}</p>
-			<a href="#" class="btn btn-primary">Play Song</a>
+			<button class="btn btn-light play" v-show="getSongID===''|| getSongID !== s.id" @click="Play(s.id,s.type,s.album_id)"><i class="fas fa-play fa-2x"></i></button>
+			<button class="btn btn-light pause" v-show="getPaused===s.id" @click="Pause()"><i class="fas fa-pause fa-2x"></i></button>
 			</div>
 			</div>
 		</div>
@@ -43,11 +44,46 @@
 			},
 			getSingleSong(){
 				return this.$store.getters.getSingleSong
+			},
+			isPlaying()
+			{
+				return this.$store.getters.isPlaying
+			},
+			isFirstPlay()
+			{
+				return this.$store.getters.getFirstPlay
+			},
+			getSongID()
+			{
+				return this.$store.getters.getSongID
+			},
+			getPaused()
+			{
+				return this.$store.getters.getPaused
 			}
 		},
 		methods:
 		{
-			
+			GoToAlbum(album)
+			{
+				if(this.name)
+				{
+					this.$router.replace({path:`/${this.name}/music-play/${album}`})
+				}
+				else
+				{
+					this.$router.replace({path:`/music-play/${album}`})	
+				}
+			},
+			Play(id,type,album_id)
+			{
+				var data={id:id,type:type,album_id:album_id}
+				this.$store.dispatch('playAudio',JSON.stringify(data))
+			},
+			Pause()
+			{
+				this.$store.dispatch('pauseAudio')
+			}			
 		},
 		beforeMount:function()
 		{

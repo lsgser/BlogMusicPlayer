@@ -6,26 +6,26 @@
     </div>
   </center>
 
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-song-data" v-show="true">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-song-data" v-show="getFirstPlay" >
     <center class="centering">
       <p style="color: white;">Time</p>
-      <p style="color:gray;">Artist-song</p>
+      <p style="color:gray;">{{getArtist}}-{{getSong}}</p>
       <input type="range" name="volume" style="width:90%" min="0" max="10" class="volume" value="5" />
     </center>
   </nav>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="true">
-    <img src="/img/albums/88bc762dda179bb7d4a9b199f6b0e71a.jpg" class="song-image" width="79"  height="79"/>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="getFirstPlay">
+    <img v-bind:src="getSongCover" class="song-image" width="79"  height="79"/>
     <center class="centering"> 
-      <button class="btn btn-light backwards">
+      <button class="btn btn-light backwards" @click="Back">
         <i class="fas fa-backward fa-2x"></i>
       </button>
-      <button class="btn btn-light play">
+      <button class="btn btn-light play" v-show="!isPlaying" @click="Play">
         <i class="fas fa-play fa-2x"></i>
       </button>
-      <button class="btn btn-light pause">
+      <button class="btn btn-light pause" v-show="isPlaying" @click="Pause">
         <i class="fas fa-pause fa-2x"></i>
       </button>
-      <button class="btn btn-light forward">
+      <button class="btn btn-light forward" @click="Next">
         <i class="fas fa-forward fa-2x"></i>
       </button>
     </center>   
@@ -40,19 +40,19 @@ export default {
 	methods:{
 		Play()
 		{
-			//do nothing yet
+			this.$store.dispatch('playAudio',JSON.stringify({id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}))
 		},
     Next()
     {
-
+      this.$store.dispatch('playNext',JSON.stringify({id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}))
     },
     Back()
     {
-
+      this.$store.dispatch('playPrevious',JSON.stringify({id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}))
     },
     Pause()
     {
-
+      this.$store.dispatch('pauseAudio',JSON.stringify({id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}))
     }
 	},
   computed:{
@@ -61,7 +61,29 @@ export default {
     },
     isPlaying(){
       return this.$store.getters.isPlaying
+    },
+    getSongCover(){
+      return this.$store.getters.getSongCover
+    },
+    getSong(){
+      return this.$store.getters.getSongName
+    },
+    getArtist(){
+      return this.$store.getters.getArtist
+    },
+    getAlbumID()
+    {
+      return this.$store.getters.getAlbumID
+    },
+    getOldSongID()
+    {
+      return this.$store.getters.getOldSongID
+    },
+    getType()
+    {
+      return this.$store.getters.getType
     }
+
   }  
 }
 </script>
