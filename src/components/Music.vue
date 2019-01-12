@@ -10,7 +10,7 @@
 			<div class="card-body">
 			<h5 class="card-title">{{a.album_name}}</h5>
 			<p class="card-text">Genre:{{a.genre}}</p>
-			<a href="#" class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</a>
+			<button class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 			</div>
 			</div>
 		</div>
@@ -68,11 +68,11 @@
 			{
 				if(this.name)
 				{
-					this.$router.replace({path:`/${this.name}/music-play/${album}`})
+					this.$router.push({path:`/${this.name}/music-play/${album}`})
 				}
 				else
 				{
-					this.$router.replace({path:`/music-play/${album}`})	
+					this.$router.push({path:`/music-play/${album}`})	
 				}
 			},
 			Play(id,type,album_id)

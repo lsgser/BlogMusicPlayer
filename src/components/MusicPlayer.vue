@@ -2,15 +2,15 @@
 <div v-show="getFirstPlay || isPlaying">
   <center>
     <div class="progress duration">
-      <div class="progress-bar duration" style="width: 30%;"></div>
+      <div class="progress-bar duration" v-bind:style="{width:getChangingTime}"></div>
     </div>
   </center>
 
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-song-data" v-show="getFirstPlay" >
     <center class="centering">
-      <p style="color: white;">Time</p>
+      <p style="color: white;">{{getMin}}:{{getSec}}/{{getMinDuration}}:{{getSecDuration}}</p>
       <p style="color:gray;">{{getArtist}}-{{getSong}}</p>
-      <input type="range" name="volume" style="width:90%" min="0" max="10" class="volume" value="5" />
+      <input type="range" name="volume" v-bind:style="{width: 90}" min="0" max="10" class="volume" value="5" />
     </center>
   </nav>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="getFirstPlay">
@@ -82,6 +82,26 @@ export default {
     getType()
     {
       return this.$store.getters.getType
+    },
+    getMin()
+    {
+      return this.$store.getters.getMin
+    },
+    getSec()
+    {
+      return this.$store.getters.getSec
+    },
+    getMinDuration()
+    {
+      return this.$store.getters.getMinDuration
+    },
+    getSecDuration()
+    {
+      return this.$store.getters.getSecDuration
+    },
+    getChangingTime()
+    {
+      return this.$store.getters.getChangingTime + '%'
     }
 
   }  

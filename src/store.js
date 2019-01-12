@@ -34,7 +34,8 @@ state:{
 	oldSongID:'',
 	type:'',
 	songList:[],
-	songdirectory:''
+	songdirectory:'',
+	nav_links:false
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -269,42 +270,49 @@ mutations:{
 			{
 				var len = state.songs.length-1
 
-				if(state.songIndex < len )
+				if(state.songIndex > 0 )
 				{
-					state.directory = state.songs[state.songIndex+1].directory
-					state.songIndex=index+1
-					state.albumID=state.songs[state.songIndex+1].album_id
-					state.songID=state.songs[state.songIndex+1].id
-					state.songCover = state.songs[state.songIndex+1].art_cover
-					state.songName = state.songs[state.songIndex+1].song_name
-					state.artist=state.songs[state.songIndex+1].artists
+					state.directory = state.songs[state.songIndex-1].directory
+					state.albumID=state.songs[state.songIndex-1].album_id
+					state.songID=state.songs[state.songIndex-1].id
+					state.songCover = state.songs[state.songIndex-1].art_cover
+					state.songName = state.songs[state.songIndex-1].song_name
+					state.artist=state.songs[state.songIndex-1].artists
 					state.firstPlay=true
 					state.isPlaying=true
 					state.isPaused=false
-					state.oldSongID=state.songs[state.songIndex+1].id
+					state.oldSongID=state.songs[state.songIndex-1].id
 					state.pausedSong=state.songID
+					state.songIndex=state.songIndex-1
 					state.audio.pause()
 					state.audio.currentTime=0
 					state.audio = new Audio(state.directory)
 				}
-				else if(state.songIndex == len)
+				else if(state.songIndex == 0)
 				{
-					state.directory = state.songs[0].directory
-					state.songIndex=0
-					state.albumID=state.songs[0].album_id
-					state.songID=state.songs[0].id
-					state.songCover = state.songs[0].art_cover
-					state.songName = state.songs[0].song_name
-					state.artist=state.songs[0].artists
+					state.directory = state.songs[len].directory
+					state.albumID=state.songs[len].album_id
+					state.songID=state.songs[len].id
+					state.songCover = state.songs[len].art_cover
+					state.songName = state.songs[len].song_name
+					state.artist=state.songs[len].artists
 					state.firstPlay=true
 					state.isPlaying=true
 					state.isPaused=false
-					state.oldSongID=state.songs[0].id
+					state.oldSongID=state.songs[len].id
 					state.pausedSong=state.songID
+					state.songIndex=len
 					state.audio.pause()
 					state.audio.currentTime=0
 					state.audio = new Audio(state.directory)
 				}
+			}
+			else
+			{
+				state.audio.pause()
+				state.audio.currentTime=0
+				state.audio = new Audio(state.directory)
+			
 			}
 		}
 		state.audio.play()
@@ -340,42 +348,48 @@ mutations:{
 			{
 				var len = state.songs.length-1
 
-				if(state.songIndex > 0 )
+				if(state.songIndex < len )
 				{
-					state.directory = state.songs[state.songIndex-1].directory
-					state.songIndex=index-1
-					state.albumID=state.songs[state.songIndex-1].album_id
-					state.songID=state.songs[state.songIndex-1].id
-					state.songCover = state.songs[state.songIndex-1].art_cover
-					state.songName = state.songs[state.songIndex-1].song_name
-					state.artist=state.songs[state.songIndex-1].artists
+					state.directory = state.songs[state.songIndex+1].directory
+					state.albumID=state.songs[state.songIndex+1].album_id
+					state.songID=state.songs[state.songIndex+1].id
+					state.songCover = state.songs[state.songIndex+1].art_cover
+					state.songName = state.songs[state.songIndex+1].song_name
+					state.artist=state.songs[state.songIndex+1].artists
 					state.firstPlay=true
 					state.isPlaying=true
 					state.isPaused=false
-					state.oldSongID=state.songs[state.songIndex-1].id
+					state.oldSongID=state.songs[state.songIndex+1].id
 					state.pausedSong=state.songID
+					state.songIndex=state.songIndex+1
 					state.audio.pause()
 					state.audio.currentTime=0
 					state.audio = new Audio(state.directory)
 				}
-				else if(state.songIndex == 0)
+				else if(state.songIndex == len)
 				{
-					state.directory = state.songs[len].directory
-					state.songIndex=len
-					state.albumID=state.songs[len].album_id
-					state.songID=state.songs[len].id
-					state.songCover = state.songs[len].art_cover
-					state.songName = state.songs[len].song_name
-					state.artist=state.songs[len].artists
+					state.directory = state.songs[0].directory
+					state.albumID=state.songs[0].album_id
+					state.songID=state.songs[0].id
+					state.songCover = state.songs[0].art_cover
+					state.songName = state.songs[0].song_name
+					state.artist=state.songs[0].artists
 					state.firstPlay=true
 					state.isPlaying=true
 					state.isPaused=false
-					state.oldSongID=state.songs[len].id
+					state.oldSongID=state.songs[0].id
 					state.pausedSong=state.songID
+					state.songIndex=0
 					state.audio.pause()
 					state.audio.currentTime=0
 					state.audio = new Audio(state.directory)
 				}
+			}
+			else
+			{
+				state.audio.pause()
+				state.audio.currentTime=0
+				state.audio = new Audio(state.directory)
 			}
 		}
 		state.audio.play()
@@ -396,6 +410,14 @@ mutations:{
 		    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
 		    }
 		})
+	},
+	SET_NAV_TRUE(state)
+	{
+		state.nav_links=true
+	},
+	SET_NAV_FALSE(state)
+	{
+		state.nav_links=false
 	}
 },
 getters:{
@@ -416,7 +438,23 @@ getters:{
 	getType:state=>{return state.type},
 	getOldSongID:state=>{return state.oldSongID},
 	getSongList:state=>{return state.songList},
-	getSongIndex:state=>{return state.songIndex}
+	getSongIndex:state=>{return state.songIndex},
+	getNavBool:state=>{return state.nav_links},
+	getMinDuration:state=>{return state.minDuration},
+	getSecDuration:state=>{return state.secDuration},
+	getMin:state=>{return state.min},
+	getSec:state=>{return state.sec},
+	getChangingTime:state=>{
+
+		if((state.min==state.minDuration && state.sec==state.secDuration) &&  (state.min!=0 && state.sec!=0))
+		{
+			return 100
+		}
+		else
+		{
+			return state.time	
+		}
+	}
  },
 actions:{
 	loadData({commit},user){
@@ -481,6 +519,14 @@ actions:{
 	{
 		data =JSON.parse(data)
 		commit('SET_PREVIOUS',data)
+	},
+	trueNavLink({commit})
+	{
+		commit('SET_NAV_TRUE')
+	},
+	falseNavLink({commit})
+	{
+		commit('SET_NAV_FALSE')
 	}
 }
 })
