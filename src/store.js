@@ -35,7 +35,9 @@ state:{
 	type:'',
 	songList:[],
 	songdirectory:'',
-	nav_links:false
+	nav_links:false,
+	membersInfo:[],
+	membersData:[]
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -418,6 +420,17 @@ mutations:{
 	SET_NAV_FALSE(state)
 	{
 		state.nav_links=false
+	},
+	SET_MEMBERS_INFO(state,data)
+	{
+		state.membersInfo=data.data
+	},
+	SET_MEMBERS_DATA(state,data)
+	{
+		state.membersData=[]
+		data.data.forEach(function(element){
+			state.membersData.push(element)
+		})
 	}
 },
 getters:{
@@ -454,7 +467,9 @@ getters:{
 		{
 			return state.time	
 		}
-	}
+	},
+	getMembersInfo:state=>{return state.membersInfo},
+	getMembersData:state=>{return state.membersData}
  },
 actions:{
 	loadData({commit},user){
@@ -527,6 +542,16 @@ actions:{
 	falseNavLink({commit})
 	{
 		commit('SET_NAV_FALSE')
+	},
+	loadWelcomeData({commit})
+	{
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
+			commit('SET_MEMBERS_INFO',res)
+		})
+
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=members').then(function(res){
+			commit('SET_MEMBERS_DATA',res)	
+		})
 	}
 }
 })

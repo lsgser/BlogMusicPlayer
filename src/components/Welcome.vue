@@ -6,17 +6,12 @@
   <section class="container">
     <div class="container">
     <center>
-      <!--
-      <div v-for="(u,index) in getUser" :key="index">
-        <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
-        <hr/>
-        <br/>
-        <h4><u>About {{u.artist_name}}</u></h4>
-        <p v-html="u.about">
-          {{u.about}}
-        </p>
-      </div>
-      -->
+      <h4><u>Welcome To 6ity Gang</u></h4>
+        <div>
+          <p v-html="getMembersInfo.about">
+              {{getMembersInfo.about}}
+          </p>
+        </div>
     </center>
     </div>
   </section>
@@ -25,23 +20,17 @@
     <div class="container">
     <center>
       <h4><u>Members</u></h4>
-      <!--
-      <div id="carouselControl" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item" v-for="(a,index) in getAlbums" :key="a.id" :class="{active:index==0}">
-                <img class="img-fluid" :src="a.album_cover" alt="" width="400" height="400" />
-            </div>
+      <div class="row">
+        <div class="col-sm-4" v-for="(d,index) in getMembersData" :key ="index">
+          <div class="card" style="width:20rem">
+          <img class="card-img-top" v-bind:src="d.picture" alt="" />
+          <div class="card-body">
+          <h5 class="card-title">Artist :{{d.artist_name}}</h5>
+          <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
           </div>
-          <a class="carousel-control-prev" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+          </div>
+        </div>
       </div>
-      -->
     </center>
     </div>
   </section> 
@@ -53,7 +42,10 @@
 export default {
   name:'Welcome',
   methods:{
-
+    GoToProfile(name)
+    {
+      this.$router.push({path:`/${name}`})
+    }
   },
   computed:{
     getUser()
@@ -63,11 +55,19 @@ export default {
     getAlbums()
     {
       return this.$store.getters.getAlbums
+    },
+    getMembersInfo()
+    {
+      return this.$store.getters.getMembersInfo
+    },
+    getMembersData()
+    {
+      return this.$store.getters.getMembersData
     }
   },
   beforeMount:function()
   {
-    
+    this.$store.dispatch('loadWelcomeData')
   },
   data:function()
   {
