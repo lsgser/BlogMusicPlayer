@@ -25,7 +25,7 @@
           <div class="card" style="width:20rem">
           <img class="card-img-top" v-bind:src="d.picture" alt="" />
           <div class="card-body">
-          <h5 class="card-title">Artist :{{d.artist_name}}</h5>
+          <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
           <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
           </div>
           </div>
@@ -45,6 +45,8 @@ export default {
     GoToProfile(name)
     {
       this.$router.push({path:`/${name}`})
+      this.$store.dispatch('changeNavName',name)
+      this.$store.dispatch('trueNavLink')
     }
   },
   computed:{
@@ -63,6 +65,10 @@ export default {
     getMembersData()
     {
       return this.$store.getters.getMembersData
+    },
+    getNavigationName()
+    {
+      return this.$store.getters.getNavigationName
     }
   },
   beforeMount:function()

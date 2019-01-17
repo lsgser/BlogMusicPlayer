@@ -37,7 +37,8 @@ state:{
 	songdirectory:'',
 	nav_links:false,
 	membersInfo:[],
-	membersData:[]
+	membersData:[],
+	navigationName:''
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -431,6 +432,10 @@ mutations:{
 		data.data.forEach(function(element){
 			state.membersData.push(element)
 		})
+	},
+	SET_NAVIGATION_NAME(state,data)
+	{
+		state.navigationName=data
 	}
 },
 getters:{
@@ -469,7 +474,8 @@ getters:{
 		}
 	},
 	getMembersInfo:state=>{return state.membersInfo},
-	getMembersData:state=>{return state.membersData}
+	getMembersData:state=>{return state.membersData},
+	getNavigationName:state=>{return state.navigationName}
  },
 actions:{
 	loadData({commit},user){
@@ -552,6 +558,10 @@ actions:{
 		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=members').then(function(res){
 			commit('SET_MEMBERS_DATA',res)	
 		})
+	},
+	changeNavName({commit},data)
+	{
+		commit('SET_NAVIGATION_NAME',{name:data})
 	}
 }
 })

@@ -2,28 +2,29 @@
 <div class="container">
 	<center><h2>Music</h2></center>
 	<br/>
-	<h3>Albums</h3>
+	<h3>Album(s)</h3>
 	<div class="row">
 		<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
 			<div class="card" style="width:20rem">
 			<img class="card-img-top" v-bind:src="a.album_cover" alt="" />
 			<div class="card-body">
-			<h5 class="card-title">{{a.album_name}}</h5>
-			<p class="card-text">Genre:{{a.genre}}</p>
+			<h5 class="card-title">{{a.album_name.toUpperCase()}}</h5>
+			<p class="card-text">Genre : {{a.genre.toUpperCase()}}</p>
 			<button class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 			</div>
 			</div>
 		</div>
 	</div>
 	<br>
-	<h3>Singles</h3>
+	<h3>Single(s)</h3>
 	<div class="row">
 		<div class="col-sm-4" v-for="(s,index) in getSingleSong" :key ="index">
 			<div class="card" style="width:20rem">
 			<img class="card-img-top" v-bind:src="s.art_cover" alt="" />
 			<div class="card-body">
-			<h5 class="card-title">Artist(s):{{s.artists}}</h5>
-			<p class="card-text">Genre:{{s.genre}}</p>
+			<h5 class="card-title">Artist(s) : {{s.artists.toUpperCase()}}</h5>
+			<p class="card-text">Song : {{s.song_name.toUpperCase()}}</p>
+			<p class="card-text">Genre : {{s.genre.toUpperCase()}}</p>
 			<button class="btn btn-light play" v-show="getSongID===''|| getSongID !== s.id" @click="Play(s.id,s.type,s.album_id)"><i class="fas fa-play fa-2x"></i></button>
 			<button class="btn btn-light pause" v-show="getPaused===s.id" @click="Pause()"><i class="fas fa-pause fa-2x"></i></button>
 			</div>

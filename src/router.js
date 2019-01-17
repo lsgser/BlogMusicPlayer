@@ -13,7 +13,7 @@ export default new Router({
 	mode:'history',
 	//base:__dirname,
 	routes:[
-		{path:'/',name:'home',component:Welcome},
+		{path:'/',name:'welcome',component:Welcome},
 		{path:'/contacts/',name:'contacts',component:Contacts},
 		{path:'/:name',name:'home',component:Home},
 		{path:'/:name/music-list/',name:'music-list',component:Music},
