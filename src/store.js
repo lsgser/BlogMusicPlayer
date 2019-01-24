@@ -38,7 +38,8 @@ state:{
 	nav_links:false,
 	membersInfo:[],
 	membersData:[],
-	navigationName:''
+	navigationName:'',
+	contactInfo:[]
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -436,6 +437,10 @@ mutations:{
 	SET_NAVIGATION_NAME(state,data)
 	{
 		state.navigationName=data
+	},
+	SET_CONTACT_INFO(state,data)
+	{
+		state.contactInfo =data.data
 	}
 },
 getters:{
@@ -475,7 +480,8 @@ getters:{
 	},
 	getMembersInfo:state=>{return state.membersInfo},
 	getMembersData:state=>{return state.membersData},
-	getNavigationName:state=>{return state.navigationName}
+	getNavigationName:state=>{return state.navigationName},
+	getContactInfo:state=>{return state.contactInfo}
  },
 actions:{
 	loadData({commit},user){
@@ -562,6 +568,11 @@ actions:{
 	changeNavName({commit},data)
 	{
 		commit('SET_NAVIGATION_NAME',{name:data})
+	},
+	loadContactData({commit}){
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
+			commit('SET_CONTACT_INFO',res)
+		})
 	}
 }
 })

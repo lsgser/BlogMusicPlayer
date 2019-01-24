@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-	<center><h2>Music</h2></center>
+	<center><h2><u>Music</u></h2></center>
 	<br/>
 	<h3>Album(s)</h3>
 	<div class="row">
