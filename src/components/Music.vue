@@ -3,7 +3,7 @@
 	<center><h2><u>Music</u></h2></center>
 	<br/>
 	<h3>Album(s)</h3>
-	<div class="row">
+	<div class="row" v-if="getAlbums.length">
 		<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
 			<div class="card" style="width:20rem">
 			<img class="card-img-top" v-bind:src="a.album_cover" alt="" />
@@ -15,10 +15,13 @@
 			</div>
 		</div>
 	</div>
+	<div v-else>
+		<h5 >No Album Uploaded For This Page</h5>	
+	</div>
 	<br>
 	<h3>Single(s)</h3>
-	<div class="row">
-		<div class="col-sm-4" v-for="(s,index) in getSingleSong" :key ="index">
+	<div class="row" v-if="getSingleSong.length">
+		<div class="col-sm-4"  v-for="(s,index) in getSingleSong" :key ="index">
 			<div class="card" style="width:20rem">
 			<img class="card-img-top" v-bind:src="s.art_cover" alt="" />
 			<div class="card-body">
@@ -30,6 +33,9 @@
 			</div>
 			</div>
 		</div>
+	</div>
+	<div v-else>
+		<h5>No Single Uploaded For This Page</h5>
 	</div>
 </div>
 </template>

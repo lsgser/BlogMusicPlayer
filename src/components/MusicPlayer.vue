@@ -9,8 +9,10 @@
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-song-data" v-show="getFirstPlay" >
     <center class="centering">
       <p style="color: white;">{{getMin}}:{{getSec}}/{{getMinDuration}}:{{getSecDuration}}</p>
-      <p style="color:gray;">{{getArtist}}-{{getSong}}</p>
-      <input type="range" name="volume" v-bind:style="{width: 90}" min="0" max="10" class="volume" value="5" />
+      <p style="color:gray;">{{getArtist}} - {{getSong}}</p>
+      <!--
+        <input type="range" name="volume" v-bind:style="{width: 90}" min="0" max="10" class="volume" value="5" />
+      -->
     </center>
   </nav>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="getFirstPlay">
