@@ -13,7 +13,7 @@
     <div class="container">
     <center>
       <h4><u>Skills</u></h4>
-      <h5>I'm a full stack web developer that is proficient in the following languages and frameworks(not all of them are included in the list below):</h5>
+      <h5>I'm a full stack web developer that is proficient in the following languages and frameworks(not all of them are included on the list below):</h5>
       <li class="list-group-item list-group-item">CSS3</li>
       <li class="list-group-item list-group-item">PYTHON</li>
       <li class="list-group-item list-group-item">PHP</li>

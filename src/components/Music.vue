@@ -6,12 +6,14 @@
 	<div class="row" v-if="getAlbums.length">
 		<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
 			<div class="card" style="width:20rem">
-			<img class="card-img-top" v-bind:src="a.album_cover" alt="" />
-			<div class="card-body">
-			<h5 class="card-title">{{a.album_name.toUpperCase()}}</h5>
-			<p class="card-text">Genre : {{a.genre.toUpperCase()}}</p>
-			<button class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</button>
-			</div>
+				<img class="card-img-top" v-bind:src="a.album_cover" alt="" />
+				<div class="card-body">
+					<h5 class="card-title">{{a.album_name.toUpperCase()}}</h5>
+					<p class="card-text">Genre : {{a.genre.toUpperCase()}}</p>
+					<center>
+						<button class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</button>
+					</center>
+				</div>
 			</div>
 		</div>
 	</div>

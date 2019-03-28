@@ -260,7 +260,7 @@ mutations:{
 			state.songList.push(element)
 		})	
 	},
-	SET_NEXT(state,data)
+	SET_PREVIOUS(state,data)
 	{
 		if(data.type==1)
 		{
@@ -338,7 +338,7 @@ mutations:{
 		    }
 		})
 	},
-	SET_PREVIOUS(state,data)
+	SET_NEXT(state,data)
 	{
 		if(data.type==1)
 		{
@@ -524,7 +524,7 @@ actions:{
 		}
 		else//album
 		{
-			axios.get('https://6itygang.com/api/view/albums/get.php?album='+data.album_id).then(function(res){
+			axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+data.album_id).then(function(res){
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})

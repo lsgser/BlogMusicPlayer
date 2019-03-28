@@ -1,10 +1,7 @@
 <template>
 <div class="container">
-  <center>
-  </center>
   <br/>
-  <section class="container">
-    <div class="container">
+  <div class="container">
     <center>
       <h4><u>Welcome To 6ity Gang</u></h4>
         <div>
@@ -13,27 +10,26 @@
           </p>
         </div>
     </center>
-    </div>
-  </section>
+  </div>
   <hr/>
-  <section class="my-work">
-    <div class="container">
+  <div class="container">
     <center>
       <h4><u>Members</u></h4>
-      <div class="row">
-        <div class="col-sm-4" v-for="(d,index) in getMembersData" :key ="index">
-          <div class="card" style="width:20rem">
+    </center>
+    <div class="row">
+      <div class="col-sm-4" v-for="(d,index) in getMembersData" :key ="index">
+        <div class="card" style="width:20rem">
           <img class="card-img-top" v-bind:src="d.picture" alt="" />
           <div class="card-body">
-          <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
-          <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
-          </div>
+          <center>  
+            <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
+            <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
+          </center>
           </div>
         </div>
       </div>
-    </center>
     </div>
-  </section> 
+  </div> 
   <hr/>
 </div>  
 </template>
