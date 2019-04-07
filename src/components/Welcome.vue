@@ -16,15 +16,13 @@
     <center>
       <h4><u>Members</u></h4>
     </center>
-    <div class="row">
+    <div class="row" v-if="getMembersData.length">
       <div class="col-sm-4" v-for="(d,index) in getMembersData" :key ="index">
-        <div class="card" style="width:20rem">
+        <div class="card text-center" style="width:20rem">
           <img class="card-img-top" v-bind:src="d.picture" alt="" />
-          <div class="card-body">
-          <center>  
+          <div class="card-body">  
             <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
-            <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
-          </center>
+              <button class="btn btn-primary" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
           </div>
         </div>
       </div>

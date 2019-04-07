@@ -2,7 +2,7 @@
 <div class="container">
 	<center><h2><u>Music</u></h2></center>
 	<br/>
-	<h3>Album(s)</h3>
+	<h3 class="col-sm-1">Album(s)</h3>
 	<div class="row" v-if="getAlbums.length">
 		<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
 			<div class="card" style="width:20rem">
@@ -21,7 +21,7 @@
 		<h5 >No Album Uploaded For This Page</h5>	
 	</div>
 	<br>
-	<h3>Single(s)</h3>
+	<h3 class="col-sm-1">Single(s)</h3>
 	<div class="row" v-if="getSingleSong.length">
 		<div class="col-sm-4"  v-for="(s,index) in getSingleSong" :key ="index">
 			<div class="card" style="width:20rem">
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div v-else>
-		<h5>No Single Uploaded For This Page</h5>
+		<h5 class="col-sm-4">No Single Uploaded For This Page</h5>
 	</div>
 </div>
 </template>
