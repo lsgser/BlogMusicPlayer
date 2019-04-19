@@ -32,5 +32,13 @@ export default {
 }
 .container{
     margin-bottom:2.2cm;
+}
+
+@media (max-width:576px) {
+  img.gif-loader{
+    width: 0.05rem;
+    height: 0.05rem;
   }
+}
+
 </style>

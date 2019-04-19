@@ -39,7 +39,15 @@ state:{
 	membersInfo:[],
 	membersData:[],
 	navigationName:'',
-	contactInfo:[]
+	contactInfo:[],
+	artistIsLoaded:false,
+	artistDataIsLoaded:false,
+	singleIsLoaded:false,
+	albumIsLoaded:false,
+	userIsLoaded:false,
+	contactIsLoaded:false,
+	albumInfoIsLoaded:false,
+	songIsLoaded:false
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -48,6 +56,7 @@ mutations:{
 		data.data.forEach(function(element){
 			state.albums.push(element)
 		})
+		state.albumIsLoaded=true
 	},
 	SET_SINGLES(state,data)
 	{
@@ -55,14 +64,17 @@ mutations:{
 		data.data.forEach(function(element){
 			state.singleSong.push(element)
 		})
+		state.singleIsLoaded=true
 	},
 	SET_USER(state,data)
 	{
 		state.user = data.data
+		state.userIsLoaded=true
 	},
 	SET_ALBUM_INFO(state,data)
 	{
 		state.albumInfo=data.data
+		state.albumInfoIsLoaded=true
 	},
 	SET_SONGS(state,data){
 		state.songs = []
@@ -117,6 +129,13 @@ mutations:{
 					    {
 					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
 					    }
+					    if(state.audio.ended)
+					    {
+					  		state.songID=""
+							state.pausedSong=""
+							state.isPlaying=false
+							state.audio.pause()  	
+					    }
 					})
 				}
 				else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
@@ -150,6 +169,13 @@ mutations:{
 					    if (state.audio.currentTime > 0) 
 					    {
 					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
+					    }
+					    if(state.audio.ended)
+					    {
+					  		state.songID=""
+							state.pausedSong=""
+							state.isPlaying=false
+							state.audio.pause()  	
 					    }
 					})
 				}
@@ -199,6 +225,13 @@ mutations:{
 					    {
 					      	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
 					    }
+					    if(state.audio.ended)
+					    {
+					  		state.songID=""
+							state.pausedSong=""
+							state.isPlaying=false
+							state.audio.pause()  	
+					    }
 					})
 				}
 				else if(state.songID===element.id && state.oldSongID===element.id)
@@ -233,6 +266,13 @@ mutations:{
 					    {
 					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
 					    }
+					    if(state.audio.ended)
+					    {
+					  		state.songID=""
+							state.pausedSong=""
+							state.isPlaying=false
+							state.audio.pause()  	
+					    }
 					})	
 				}
 			})
@@ -258,7 +298,8 @@ mutations:{
 		state.songList = []
 		data.data.forEach(function(element){
 			state.songList.push(element)
-		})	
+		})
+		state.songIsLoaded=true	
 	},
 	SET_PREVIOUS(state,data)
 	{
@@ -335,6 +376,13 @@ mutations:{
 		    if (state.audio.currentTime > 0) 
 		    {
 		    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
+		    }
+		    if(state.audio.ended)
+		    {
+		  		state.songID=""
+				state.pausedSong=""
+				state.isPlaying=false
+				state.audio.pause()  	
 		    }
 		})
 	},
@@ -413,6 +461,13 @@ mutations:{
 		    {
 		    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
 		    }
+		    if(state.audio.ended)
+		    {
+		  		state.songID=""
+				state.pausedSong=""
+				state.isPlaying=false
+				state.audio.pause()  	
+		    }
 		})
 	},
 	SET_NAV_TRUE(state)
@@ -426,6 +481,7 @@ mutations:{
 	SET_MEMBERS_INFO(state,data)
 	{
 		state.membersInfo=data.data
+		state.artistDataIsLoaded=true
 	},
 	SET_MEMBERS_DATA(state,data)
 	{
@@ -433,6 +489,7 @@ mutations:{
 		data.data.forEach(function(element){
 			state.membersData.push(element)
 		})
+		state.artistIsLoaded=true
 	},
 	SET_NAVIGATION_NAME(state,data)
 	{
@@ -441,7 +498,46 @@ mutations:{
 	SET_CONTACT_INFO(state,data)
 	{
 		state.contactInfo =data.data
+		state.contactIsLoaded=true
+	},
+	SET_ARTIST_LOADER(state)
+	{
+		state.artistIsLoaded=false
+	},
+	SET_ARTIST_DATA_LOADER(state)
+	{
+		state.artistDataIsLoaded=false
+	},
+	SET_ALBUM_LOADER(state)
+	{
+		state.albumIsLoaded=true
+	},
+	SET_SINGLE_LOADER(state)
+	{
+		state.singleIsLoaded=false
+	},
+	SET_USER_LOADER(state)
+	{
+		state.userIsLoaded=false
+	},
+	SET_CONTACT_LOADER(state)
+	{
+		state.contactIsLoaded=false
+	},
+	SET_ALBUM_INFO_LOADER(state)
+	{
+		state.albumInfoIsLoaded=false
+	},
+	SET_SONG_LOADER(state)
+	{
+		state.songIsLoaded=false
+	},
+	SET_NEW_TIME(state,data)
+	{
+		let newTime = data.clickedSection*state.audio.duration/data.barSize
+		state.audio.currentTime = newTime
 	}
+
 },
 getters:{
 	getSongs :state => {return state.songs},
@@ -481,32 +577,44 @@ getters:{
 	getMembersInfo:state=>{return state.membersInfo},
 	getMembersData:state=>{return state.membersData},
 	getNavigationName:state=>{return state.navigationName},
-	getContactInfo:state=>{return state.contactInfo}
+	getContactInfo:state=>{return state.contactInfo},
+	artistIsLoaded:state=>{return state.artistIsLoaded},
+	artistDataIsLoaded:state => {return state.artistDataIsLoaded},
+	singleIsLoaded:state=>{return state.singleIsLoaded},
+	albumIsLoaded:state=>{return state.albumIsLoaded},
+	userIsLoaded:state=>{return state.userIsLoaded},
+	contactIsLoaded:state=>{return state.contactIsLoaded},
+	albumInfoIsLoaded:state=>{return state.albumInfoIsLoaded},
+	songIsLoaded:state=>{return state.songIsLoaded}
  },
 actions:{
 	loadData({commit},user){
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?name='+user+'').then(function(res){
+			commit('SET_ALBUM_LOADER')
 			commit('SET_ALBUMS',res)
 		}).catch(function(err){
 			console.log(err)
 		})
 		axios.get('https://www.6itygang.com/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
+				commit('SET_SINGLE_LOADER')
 				commit('SET_SINGLES',res)
 		})
 	},
 	loadUser({commit},user)
 	{
 		axios.get('https://www.6itygang.com/api/view/user/get.php?name='+user+'').then(function(res){
+			commit('SET_USER_LOADER')
 			commit('SET_USER',res)
 		})
 	},
 	loadAlbumData({commit},album)
 	{
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?album_info='+album).then(function(res){
+			commit('SET_ALBUM_INFO_LOADER')
 			commit('SET_ALBUM_INFO',res)
 		})
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+album).then(function(res){
-			//commit('SET_SONGS',res)
+			commit('SET_SONG_LOADER')
 			commit('SET_SONG_LIST',res)//for the tracklist on playmusic.vue
 		})
 	},
@@ -558,10 +666,12 @@ actions:{
 	loadWelcomeData({commit})
 	{
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
+			commit('SET_ARTIST_DATA_LOADER')
 			commit('SET_MEMBERS_INFO',res)
 		})
 
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=members').then(function(res){
+			commit('SET_ARTIST_LOADER')
 			commit('SET_MEMBERS_DATA',res)	
 		})
 	},
@@ -571,8 +681,14 @@ actions:{
 	},
 	loadContactData({commit}){
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
+			commit('SET_CONTACT_LOADER')
 			commit('SET_CONTACT_INFO',res)
 		})
+	},
+	changeTime({commit},data)
+	{
+		data = JSON.parse(data)
+		commit('SET_NEW_TIME',data)
 	}
 }
 })

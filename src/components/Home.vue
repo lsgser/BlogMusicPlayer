@@ -4,40 +4,56 @@
   </center>
   <br/>
   <section class="container">
-    <div class="container">
-    <center>
-      <div v-for="(u,index) in getUser" :key="index">
-        <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
-        <hr/>
-        <br/>
-        <h4><u>About {{u.artist_name}}</u></h4>
-        <p v-html="u.about">
-          {{u.about}}
-        </p>
-      </div>
-    </center>
+    <div class="container" v-show="userIsLoaded">
+      <center>
+        <div v-for="(u,index) in getUser" :key="index">
+          <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
+          <hr/>
+          <br/>
+          <h4><u>About {{u.artist_name}}</u></h4>
+          <p v-html="u.about">
+            {{u.about}}
+          </p>
+        </div>
+      </center>
+    </div>
+    <div v-show="!userIsLoaded">
+      <center>
+        <img class="gif-loader" src="gifs/Rolling.gif" />
+        <h6>Loading The Artists Description...</h6>
+      </center>
     </div>
   </section>
   <hr/>
   <section class="my-work">
-    <div class="container">
-      <center v-show="getAlbums.length">
-        <h4><u>Album Covers</u></h4>
-        <div id="carouselControl" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item" v-for="(a,index) in getAlbums" :key="a.id" :class="{active:index==0}">
-                  <img class="img-fluid" :src="a.album_cover" alt="" width="400" height="400" />
+    <center>
+      <h4><u>Album Covers</u></h4>
+    </center>
+    <div v-show="albumIsLoaded">
+      <div class="container">
+        <center v-show="getAlbums.length">
+          <div id="carouselControl" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item" v-for="(a,index) in getAlbums" :key="a.id" :class="{active:index==0}">
+                    <img class="img-fluid" :src="a.album_cover" alt="" width="400" height="400" />
+                </div>
               </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-        </div>
+              <a class="carousel-control-prev" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselControl" role="button" style="background:#171414 no-repeat center center" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+          </div>
+        </center>
+      </div>
+    </div>
+    <div v-show="!albumIsLoaded">
+      <center>
+        <img class="gif-loader" src="gifs/Rolling.gif" />
+        <h6>Loading Artists Album Cover Slides...</h6>
       </center>
     </div>
   </section> 
@@ -73,6 +89,14 @@ export default {
     getNavigationName()
     {
       return this.$store.getters.getNavigationName
+    },
+    albumIsLoaded()
+    {
+      return this.$store.getters.albumIsLoaded
+    },
+    userIsLoaded()
+    {
+      return this.$store.getters.userIsLoaded
     }
   },
   beforeMount:function()

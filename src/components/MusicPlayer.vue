@@ -1,7 +1,7 @@
 <template>
 <div v-show="getFirstPlay || isPlaying">
   <center>
-    <div class="progress duration">
+    <div class="progress duration" @click="DurationChange">
       <div class="progress-bar duration" v-bind:style="{width:getChangingTime}"></div>
     </div>
   </center>
@@ -55,6 +55,18 @@ export default {
     Pause()
     {
       this.$store.dispatch('pauseAudio',JSON.stringify({id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}))
+    },
+    DurationChange(e)
+    {
+
+      if(parseInt(this.getBarDuration) < 100 && parseInt(this.getBarDuration) > 0)
+      {
+        let mouseX = e.pageX - document.getElementsByClassName('progress')[0].offsetLeft
+        let barsize = document.getElementsByClassName('progress')[0].clientWidth
+        //console.log(document.getElementsByClassName('progress'))
+        this.$store.dispatch('changeTime',JSON.stringify({clickedSection:mouseX,barSize:barsize}))
+      }
+
     }
 	},
   computed:{
@@ -104,9 +116,13 @@ export default {
     getChangingTime()
     {
       return this.$store.getters.getChangingTime + '%'
+    },
+    getBarDuration()
+    {
+      return this.$store.getters.getChangingTime
     }
 
-  }  
+  } 
 }
 </script>
 
@@ -130,7 +146,6 @@ nav.navbar.navbar-expand-md.bg-dark.navbar-dark.navbar-music-player
 }
 nav.navbar.navbar-expand-md.bg-dark.navbar-dark.navbar-song-data
 {
-  /*position: relative;*/
   position:relative;
   min-height: 70px;
   z-index: 150;
@@ -186,7 +201,9 @@ div.progress.duration{
   padding-left:0px;
   padding-right: 0px;
   */
-  height:0.2rem;
+  cursor: pointer;
+  border-radius:0;
+  height:0.7rem;
   background-color: #7e8083;
 }
 
