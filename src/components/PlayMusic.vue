@@ -10,7 +10,7 @@
 	<div v-show="!albumInfoIsLoaded">
 		<center>
         	<img class="gif-loader" src="gifs/Rolling.gif" />
-        	<h6>Loading album cover...</h6>
+        	<h6>Loading Album Cover...</h6>
       	</center>
 	</div>
 	<br>
@@ -29,7 +29,7 @@
 	<div v-show="!songIsLoaded">
 		<center>
         	<img class="gif-loader" src="gifs/Rolling.gif" />
-        	<h6>Loading tracks...</h6>
+        	<h6>Loading Tracks...</h6>
       	</center>
 	</div>
 </center>

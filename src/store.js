@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
@@ -102,14 +103,16 @@ mutations:{
 					state.isPaused=false
 					state.oldSongID=element.id
 					state.pausedSong=state.songID
-					if(parseInt(state.sec)>0)
+					if(state.audio.duration>0)//song is playing
 					{
 						state.audio.pause()
 						state.audio.currentTime=0
+						state.audio={}
 						state.audio = new Audio(element.directory)
 					}
 					else
 					{
+						state.audio={}
 						state.audio = new Audio(element.directory)	
 					}
 					state.audio.play()
@@ -177,6 +180,7 @@ mutations:{
 							state.isPlaying=false
 							state.audio.pause()  	
 					    }
+					    
 					})
 				}
 			})
@@ -198,14 +202,16 @@ mutations:{
 					state.isPaused=false
 					state.oldSongID=element.id
 					state.pausedSong=state.songID
-					if(state.sec>0)
+					if(state.audio.duration>0)
 					{
 						state.audio.pause()
 						state.audio.currentTime=0
+						state.audio={}
 						state.audio = new Audio(element.directory)	
 					}
 					else
 					{
+						state.audio={}
 						state.audio = new Audio(element.directory)	
 					}
 					state.audio.play()
@@ -232,6 +238,7 @@ mutations:{
 							state.isPlaying=false
 							state.audio.pause()  	
 					    }
+					    
 					})
 				}
 				else if(state.songID===element.id && state.oldSongID===element.id)
@@ -305,8 +312,13 @@ mutations:{
 	{
 		if(data.type==1)
 		{
+			state.songID=state.oldSongID
+			state.pausedSong=state.oldSongID
+			state.isPlaying=true
+			state.isPaused=false
 			state.audio.pause()
 			state.audio.currentTime=0
+			state.audio={}
 			state.audio = new Audio(state.directory)
 		}
 		else
@@ -331,6 +343,7 @@ mutations:{
 					state.songIndex=state.songIndex-1
 					state.audio.pause()
 					state.audio.currentTime=0
+					state.audio={}
 					state.audio = new Audio(state.directory)
 				}
 				else if(state.songIndex == 0)
@@ -349,13 +362,17 @@ mutations:{
 					state.songIndex=len
 					state.audio.pause()
 					state.audio.currentTime=0
+					state.audio={}
 					state.audio = new Audio(state.directory)
 				}
 			}
 			else
 			{
+				state.isPlaying=true
+				state.isPaused=false
 				state.audio.pause()
 				state.audio.currentTime=0
+				state.audio={}
 				state.audio = new Audio(state.directory)
 			
 			}
@@ -388,11 +405,17 @@ mutations:{
 	},
 	SET_NEXT(state,data)
 	{
+		
 		if(data.type==1)
 		{
+			state.songID=state.oldSongID
+			state.pausedSong=state.oldSongID
+			state.isPlaying=true
+			state.isPaused=false
 			state.audio.pause()
 			state.audio.currentTime=0
-			state.audio = new Audio(state.directory)
+			state.audio={}
+			state.audio = new Audio(state.directory)	
 		}
 		else
 		{
@@ -416,6 +439,7 @@ mutations:{
 					state.songIndex=state.songIndex+1
 					state.audio.pause()
 					state.audio.currentTime=0
+					state.audio={}
 					state.audio = new Audio(state.directory)
 				}
 				else if(state.songIndex == len)
@@ -434,17 +458,24 @@ mutations:{
 					state.songIndex=0
 					state.audio.pause()
 					state.audio.currentTime=0
+					state.audio={}
 					state.audio = new Audio(state.directory)
 				}
 			}
 			else
 			{
+				state.isPlaying=true
+				state.isPaused=false
 				state.audio.pause()
 				state.audio.currentTime=0
+				state.audio={}
 				state.audio = new Audio(state.directory)
 			}
 		}
-		state.audio.play()
+		if((data.type==1 && !state.songID=="") || data.type!=1)//single song
+		{
+			state.audio.play()
+		}
 		state.audio.addEventListener('timeupdate',function(){
 		    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
 		    state.min = parseInt((state.audio.currentTime / 60) % 60);

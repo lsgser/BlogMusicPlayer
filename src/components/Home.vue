@@ -20,7 +20,7 @@
     <div v-show="!userIsLoaded">
       <center>
         <img class="gif-loader" src="gifs/Rolling.gif" />
-        <h6>Loading The Artists Description...</h6>
+        <h6>Loading Artist Description...</h6>
       </center>
     </div>
   </section>
@@ -53,7 +53,7 @@
     <div v-show="!albumIsLoaded">
       <center>
         <img class="gif-loader" src="gifs/Rolling.gif" />
-        <h6>Loading Artists Album Cover Slides...</h6>
+        <h6>Loading Artist Album Cover Slides...</h6>
       </center>
     </div>
   </section> 

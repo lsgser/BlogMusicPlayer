@@ -19,7 +19,7 @@
 		<div v-show="!contactIsLoaded">
 			<center>
         		<img class="gif-loader" src="gifs/Rolling.gif" />
-        		<h6>Loading The Contact Info...</h6>
+        		<h6>Loading Contact Info...</h6>
       		</center>
 		</div>
 	</div>
