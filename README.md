@@ -22,7 +22,7 @@ npm run build
 ```
 npm run lint
 ```
-### The websites url
+### The websites link
 ```
-[a link](https://6itygang.com/)
+[https://6itygang.com/](https://6itygang.com/)
 ```
