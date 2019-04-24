@@ -23,6 +23,6 @@ npm run build
 npm run lint
 ```
 ### The websites link
-```
+
 https://www.6itygang.com
-```
+
