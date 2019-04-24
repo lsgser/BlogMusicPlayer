@@ -24,5 +24,5 @@ npm run lint
 ```
 ### The websites link
 ```
-[https://6itygang.com/](https://6itygang.com/)
+[Click here](https://www.6itygang.com)
 ```
