@@ -115,31 +115,6 @@ mutations:{
 						state.audio={}
 						state.audio = new Audio(element.directory)	
 					}
-					state.audio.play()
-					state.audio.addEventListener('timeupdate',function(){
-					    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-					    state.min = parseInt((state.audio.currentTime / 60) % 60);
-					    if (state.sec < 10) {
-					    	state.sec = '0' + state.sec;
-					    }
-					    state.secDuration=parseInt(state.audio.duration%60);
-					    state.minDuration=parseInt((state.audio.duration/60)%60);
-					    if (state.secDuration < 10) 
-					    {
-					    	state.secDuration = '0' + state.secDuration
-					    } 
-					    if (state.audio.currentTime > 0) 
-					    {
-					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-					    }
-					    if(state.audio.ended)
-					    {
-					  		state.songID=""
-							state.pausedSong=""
-							state.isPlaying=false
-							state.audio.pause()  	
-					    }
-					})
 				}
 				else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
 				{
@@ -156,32 +131,6 @@ mutations:{
 					state.oldSongID=element.id
 					state.pausedSong=state.songID
 					
-					state.audio.play()//resume playing the song
-					state.audio.addEventListener('timeupdate',function(){
-					    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-					    state.min = parseInt((state.audio.currentTime / 60) % 60);
-					    if (state.sec < 10) {
-					    	state.sec = '0' + state.sec;
-					    }
-					    state.secDuration=parseInt(state.audio.duration%60);
-					    state.minDuration=parseInt((state.audio.duration/60)%60);
-					    if (state.secDuration < 10) 
-					    {
-					    	state.secDuration = '0' + state.secDuration
-					    } 
-					    if (state.audio.currentTime > 0) 
-					    {
-					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-					    }
-					    if(state.audio.ended)
-					    {
-					  		state.songID=""
-							state.pausedSong=""
-							state.isPlaying=false
-							state.audio.pause()  	
-					    }
-					    
-					})
 				}
 			})
 		}
@@ -214,32 +163,6 @@ mutations:{
 						state.audio={}
 						state.audio = new Audio(element.directory)	
 					}
-					state.audio.play()
-					state.audio.addEventListener('timeupdate',function(){
-						state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-						state.min = parseInt((state.audio.currentTime / 60) % 60);
-					    if (state.sec < 10) {
-					    	state.sec = '0' + state.sec;
-					    }
-					    state.secDuration=parseInt(state.audio.duration%60);
-					    state.minDuration=parseInt((state.audio.duration/60)%60);
-					    if (state.secDuration < 10) 
-					    {
-					      	state.secDuration = '0' + state.secDuration
-					    } 
-					    if (state.audio.currentTime > 0) 
-					    {
-					      	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-					    }
-					    if(state.audio.ended)
-					    {
-					  		state.songID=""
-							state.pausedSong=""
-							state.isPlaying=false
-							state.audio.pause()  	
-					    }
-					    
-					})
 				}
 				else if(state.songID===element.id && state.oldSongID===element.id)
 				{
@@ -254,36 +177,35 @@ mutations:{
 					state.isPlaying=true
 					state.isPaused=false
 					state.oldSongID=element.id
-					state.pausedSong=state.songID
-					
-					state.audio.play()//resume playing the song
-					state.audio.addEventListener('timeupdate',function(){
-					    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-					    state.min = parseInt((state.audio.currentTime / 60) % 60);
-					    if (state.sec < 10) {
-					    	state.sec = '0' + state.sec;
-					    }
-					    state.secDuration=parseInt(state.audio.duration%60);
-					    state.minDuration=parseInt((state.audio.duration/60)%60);
-					    if (state.secDuration < 10) 
-					    {
-					    	state.secDuration = '0' + state.secDuration
-					    } 
-					    if (state.audio.currentTime > 0) 
-					    {
-					    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-					    }
-					    if(state.audio.ended)
-					    {
-					  		state.songID=""
-							state.pausedSong=""
-							state.isPlaying=false
-							state.audio.pause()  	
-					    }
-					})	
+					state.pausedSong=state.songID	
 				}
 			})
 		}
+		state.audio.play()
+		state.audio.addEventListener('timeupdate',function(){
+		    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
+		    state.min = parseInt((state.audio.currentTime / 60) % 60);
+		    if (state.sec < 10) {
+		    	state.sec = '0' + state.sec;
+		    }
+		    state.secDuration=parseInt(state.audio.duration%60);
+		    state.minDuration=parseInt((state.audio.duration/60)%60);
+		    if (state.secDuration < 10) 
+		    {
+		    	state.secDuration = '0' + state.secDuration
+		    } 
+		    if (state.audio.currentTime > 0) 
+		    {
+		    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
+		    }
+		    if(state.audio.ended)
+		    {
+		  		state.songID=""
+				state.pausedSong=""
+				state.isPlaying=false
+				state.audio.pause()  	
+		    }
+		})
 	},
 	SET_SONG_ID(state,data)
 	{
