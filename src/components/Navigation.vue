@@ -4,17 +4,17 @@
   <div>Post: {{ $route.params.name }}</div>
   -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <router-link class="navbar-brand" to="/" @click.native="Home">{{getNavigationName.name.toUpperCase()}}</router-link>
+  <router-link class="btn btn-outline-light" to="/" @click.native="Home">{{getNavigationName.name.toUpperCase()}}</router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" v-show="getNavBool">
-        <router-link class="nav-link" to="/" @click.native="Main" id="music">Home</router-link>
+        <router-link class="btn btn-outline-light" to="/" @click.native="Main" id="music">Home</router-link>
       </li>
       <li class="nav-item" v-show="getNavBool">
-        <router-link class="nav-link" to="/music-list" @click.native="Music" id="music">Music</router-link>
+        <router-link class="btn btn-outline-light" to="/music-list" @click.native="Music" id="music">Music</router-link>
       </li>
       <!--
         <li class="nav-item" v-show="getNavBool">
@@ -22,7 +22,7 @@
         </li>
       -->
       <li class="nav-item">
-        <router-link class="nav-link" id="contact" to="/contacts" @click.native="Contacts">Contacts</router-link>
+        <router-link class="btn btn-outline-light" id="contact" to="/contacts" @click.native="Contacts">Contacts</router-link>
       </li>
     </ul>
   </div>	

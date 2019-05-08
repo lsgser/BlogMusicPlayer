@@ -13,6 +13,9 @@
         	<h6>Loading Album Cover...</h6>
       	</center>
 	</div>
+	<div v-show="songIsLoaded">
+		<button type="button" data-toggle="modal" data-target="#downloadModal" class="btn btn-outline-success" style="margin-top:2em;">Click Here To Download</button>
+	</div>
 	<br>
 	<br>
   	<h5><u>Track List</u></h5>
@@ -34,10 +37,70 @@
 	</div>
 </center>
 </div>
+
+<div class="modal" id="downloadModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Download Tracks</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      	<!--
+       	<table class="table table-striped" v-show="songIsLoaded">
+       		<thead>
+	       		<tr>
+	       			<th scope="col">Track</th>
+	       			<th scope="col">Song</th>
+	       			<th scope="col"></th>
+	       		</tr>
+	       	</thead>
+	       	<tbody>
+		       	<div >	
+		       		<tr v-for="(s,index) in getSongList" :key="index">
+		       			<td scope="row">{{index+1}}</td>
+		       			<td>{{s.song_name}}</td>
+		       			<td><button type="button" class="btn btn-outline-primary" @click="Download(s.directory,s.song_name)">Download</button></td>
+		       		</tr>
+		       	</div>
+       		</tbody>
+       	</table>
+       -->
+       <table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">Track</th>
+	       	  <th scope="col">Song</th>
+	       	  <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr v-for="(s,index) in getSongList" :key="index">
+       			<td scope="row">{{index+1}}</td>
+       			<td>{{s.song_name}}</td>
+       			<td><button type="button" class="btn btn-outline-primary" @click="Download(s.directory,s.song_name)">Download</button></td>
+       		</tr>
+		  </tbody>
+		</table>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>
 </template>
 
 <script>
+	import axios from 'axios';
 	export default{
 		name:'PlayMusic',
 		methods:{
@@ -45,7 +108,28 @@
 			{
 				this.index=index
 				this.$store.dispatch('playAudio',JSON.stringify({id:id,type:type,album_id:album_id}))
-			}
+			},
+			forceFileDownload(response,name){
+		      const url = window.URL.createObjectURL(new Blob([response.data]))
+		      const link = document.createElement('a')
+		      link.href = url
+		      link.setAttribute('download', name+'.mp3') //or any other extension
+		      document.body.appendChild(link)
+		      link.click()
+		    },
+		    Download(source_url,name){
+		      console.log(name)
+		      console.log(source_url)
+		      axios({
+		        method: 'get',
+		        url: source_url,
+		        responseType: 'arraybuffer'
+		      }).then(response => {
+		        
+		        this.forceFileDownload(response,name)
+		        
+		      }).catch(() => console.log('error occured'))
+    		}
 		},
 		computed:{
 			getAlbumInfo()

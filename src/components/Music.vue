@@ -12,7 +12,7 @@
 						<h5 class="card-title">{{a.album_name.toUpperCase()}}</h5>
 						<p class="card-text">Genre : {{a.genre.toUpperCase()}}</p>
 						<center>
-							<button class="btn btn-primary" @click="GoToAlbum(a.id)">Go To Album Songs</button>
+							<button class="btn btn-outline-dark" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 						</center>
 					</div>
 				</div>
@@ -34,14 +34,18 @@
 		<div class="row" v-if="getSingleSong.length">
 			<div class="col-sm-4"  v-for="(s,index) in getSingleSong" :key ="index">
 				<div class="card" style="width:20rem">
-				<img class="card-img-top" v-bind:src="s.art_cover" alt="" />
-				<div class="card-body">
-				<h5 class="card-title">Artist(s) : {{s.artists.toUpperCase()}}</h5>
-				<p class="card-text">Song : {{s.song_name.toUpperCase()}}</p>
-				<p class="card-text">Genre : {{s.genre.toUpperCase()}}</p>
-				<button class="btn btn-light play" v-show="getSongID===''|| getSongID !== s.id" @click="Play(s.id,s.type,s.album_id)"><i class="fas fa-play fa-2x"></i></button>
-				<button class="btn btn-light pause" v-show="getPaused===s.id" @click="Pause()"><i class="fas fa-pause fa-2x"></i></button>
-				</div>
+					<img class="card-img-top" v-bind:src="s.art_cover" alt="" />
+					<div class="card-body">
+						<h5 class="card-title">Artist(s) : {{s.artists.toUpperCase()}}</h5>
+						<p class="card-text">Song : {{s.song_name.toUpperCase()}}</p>
+						<p class="card-text">Genre : {{s.genre.toUpperCase()}}</p>
+						<button class="btn btn-outline-dark play" v-show="getSongID===''|| getSongID !== s.id" @click="Play(s.id,s.type,s.album_id)"><i class="fas fa-play fa-2x"></i></button>
+						<button class="btn btn-outline-dark pause" v-show="getPaused===s.id" @click="Pause()"><i class="fas fa-pause fa-2x"></i></button>
+						<!--
+						<a class="btn btn-outline-dark float-right" v-bind:download="s.song_name" v-bind:href="s.directory"><i class="fas fa-download fa-2x"></i></a>
+						-->
+						<button class="btn btn-outline-dark float-right" @click="Download(s.directory,s.song_name)"><i class="fas fa-download fa-2x"></i></button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -59,7 +63,7 @@
 </template>
 
 <script>
-	//import axios from 'axios';	
+	import axios from 'axios';	
 	export default{
 		name:'Music',
 		computed:
@@ -116,7 +120,27 @@
 			Pause()
 			{
 				this.$store.dispatch('pauseAudio')
-			}			
+			},
+			forceFileDownload(response,name){
+		      const url = window.URL.createObjectURL(new Blob([response.data]))
+		      const link = document.createElement('a')
+		      link.href = url
+		      link.setAttribute('download', name+'.mp3') //or any other extension
+		      document.body.appendChild(link)
+		      link.click()
+		    },
+		    Download(source_url,name){
+		    console.log(name)
+		      axios({
+		        method: 'get',
+		        url: source_url,
+		        responseType: 'arraybuffer'
+		      }).then(response => {
+		        
+		        this.forceFileDownload(response,name)
+		        
+		      }).catch(() => console.log('error occured'))
+    		}			
 		},
 		beforeMount:function()
 		{

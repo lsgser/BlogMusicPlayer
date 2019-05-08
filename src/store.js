@@ -48,7 +48,7 @@ state:{
 	userIsLoaded:false,
 	contactIsLoaded:false,
 	albumInfoIsLoaded:false,
-	songIsLoaded:false
+	songIsLoaded:false,
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -85,127 +85,154 @@ mutations:{
 	},
 	PLAY_SONG(state)
 	{
-		state.songIndex=0
-		if(state.songs.length>1)
+		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended	)//The
 		{
-			state.songs.forEach(function(element,index){
-				if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
-				{
-					state.directory = element.directory
-					state.songIndex=index
-					state.albumID=element.album_id
-					state.songID=element.id
-					state.songCover = element.art_cover
-					state.songName = element.song_name
-					state.artist=element.artists
-					state.firstPlay=true
-					state.isPlaying=true
-					state.isPaused=false
-					state.oldSongID=element.id
-					state.pausedSong=state.songID
-					if(state.audio.duration>0)//song is playing
+			console.log('New')
+			state.songIndex=0
+			if(state.songs.length>1)
+			{
+				state.songs.forEach(function(element,index){
+					if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
 					{
-						state.audio.pause()
-						state.audio.currentTime=0
-						state.audio={}
-						state.audio = new Audio(element.directory)
+						state.directory = element.directory
+						state.songIndex=index
+						state.albumID=element.album_id
+						state.songID=element.id
+						state.songCover = element.art_cover
+						state.songName = element.song_name
+						state.artist=element.artists
+						state.firstPlay=true
+						state.isPlaying=true
+						state.isPaused=false
+						state.oldSongID=element.id
+						state.pausedSong=state.songID
+						if(state.audio.duration>0)//song is playing
+						{
+							state.audio.pause()
+							state.audio.currentTime=0
+							state.audio={}
+							state.audio = new Audio(element.directory)
+						}
+						else
+						{
+							state.audio={}
+							state.audio = new Audio(element.directory)	
+						}
 					}
-					else
+					/*
+					else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
 					{
-						state.audio={}
-						state.audio = new Audio(element.directory)	
+						state.directory = element.directory
+						state.songIndex=index
+						state.albumID=element.album_id
+						state.songID=element.id
+						state.songCover = element.art_cover
+						state.songName = element.song_name
+						state.artist=element.artists
+						state.firstPlay=true
+						state.isPlaying=true
+						state.isPaused=false
+						state.oldSongID=element.id
+						state.pausedSong=state.songID
+						
 					}
-				}
-				else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
-				{
-					state.directory = element.directory
-					state.songIndex=index
-					state.albumID=element.album_id
-					state.songID=element.id
-					state.songCover = element.art_cover
-					state.songName = element.song_name
-					state.artist=element.artists
-					state.firstPlay=true
-					state.isPlaying=true
-					state.isPaused=false
-					state.oldSongID=element.id
-					state.pausedSong=state.songID
-					
-				}
+					*/
+				})
+			}
+			else
+			{
+				state.songs.forEach(function(element,index){
+					if(state.songID===element.id && state.oldSongID!==element.id)
+					{
+						state.directory = element.directory
+						state.artist=element.artists
+						state.songIndex=index
+						state.albumID=element.album_id
+						state.songID=element.id
+						state.songCover = element.art_cover
+						state.songName = element.song_name
+						state.firstPlay=true
+						state.isPlaying=true
+						state.isPaused=false
+						state.oldSongID=element.id
+						state.pausedSong=state.songID
+						if(state.audio.duration>0)
+						{
+							state.audio.pause()
+							state.audio.currentTime=0
+							state.audio={}
+							state.audio = new Audio(element.directory)	
+						}
+						else
+						{
+							state.audio={}
+							state.audio = new Audio(element.directory)	
+						}
+					}
+					/*
+					else if(state.songID===element.id && state.oldSongID===element.id)
+					{
+						state.directory = element.directory
+						state.songIndex=index
+						state.albumID=element.album_id
+						state.songID=element.id
+						state.songCover = element.art_cover
+						state.songName = element.song_name
+						state.artist=element.artists
+						state.firstPlay=true
+						state.isPlaying=true
+						state.isPaused=false
+						state.oldSongID=element.id
+						state.pausedSong=state.songID	
+					}
+					*/
+				})
+			}
+			state.audio.play()
+			state.audio.addEventListener('timeupdate',function(){
+			    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
+			    state.min = parseInt((state.audio.currentTime / 60) % 60);
+			    if (state.sec < 10) {
+			    	state.sec = '0' + state.sec;
+			    }
+			    state.secDuration=parseInt(state.audio.duration%60);
+			    state.minDuration=parseInt((state.audio.duration/60)%60);
+			    if (state.secDuration < 10) 
+			    {
+			    	state.secDuration = '0' + state.secDuration
+			    } 
+			    if (state.audio.currentTime > 0) 
+			    {
+			    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
+			    }
+			    if(state.audio.ended)
+			    {
+			  		state.songID=""
+					state.pausedSong=""
+					state.isPlaying=false
+					//state.audio.pause()  	
+			    }
 			})
 		}
-		else
+		else//Paused and then resumed
 		{
-			state.songs.forEach(function(element,index){
-				if(state.songID===element.id && state.oldSongID!==element.id)
-				{
-					state.directory = element.directory
-					state.artist=element.artists
-					state.songIndex=index
-					state.albumID=element.album_id
-					state.songID=element.id
-					state.songCover = element.art_cover
-					state.songName = element.song_name
-					state.firstPlay=true
-					state.isPlaying=true
-					state.isPaused=false
-					state.oldSongID=element.id
-					state.pausedSong=state.songID
-					if(state.audio.duration>0)
-					{
-						state.audio.pause()
-						state.audio.currentTime=0
-						state.audio={}
-						state.audio = new Audio(element.directory)	
-					}
-					else
-					{
-						state.audio={}
-						state.audio = new Audio(element.directory)	
-					}
-				}
-				else if(state.songID===element.id && state.oldSongID===element.id)
-				{
-					state.directory = element.directory
-					state.songIndex=index
-					state.albumID=element.album_id
-					state.songID=element.id
-					state.songCover = element.art_cover
-					state.songName = element.song_name
-					state.artist=element.artists
-					state.firstPlay=true
-					state.isPlaying=true
-					state.isPaused=false
-					state.oldSongID=element.id
-					state.pausedSong=state.songID	
-				}
-			})
+			console.log('Resume')
+			//old song was paused then played again
+				
+			//state.directory = element.directory
+			//state.songIndex=index
+			//state.albumID=element.album_id
+			state.songID=state.oldSongID
+			//state.songCover = element.art_cover
+			//state.songName = element.song_name
+			//state.artist=element.artists
+			state.firstPlay=true
+			state.isPlaying=true
+			state.isPaused=false
+			//state.oldSongID=element.id
+			state.pausedSong=state.songID	
+			state.audio.play()//Resume playing the song
 		}
-		state.audio.play()
-		state.audio.addEventListener('timeupdate',function(){
-		    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-		    state.min = parseInt((state.audio.currentTime / 60) % 60);
-		    if (state.sec < 10) {
-		    	state.sec = '0' + state.sec;
-		    }
-		    state.secDuration=parseInt(state.audio.duration%60);
-		    state.minDuration=parseInt((state.audio.duration/60)%60);
-		    if (state.secDuration < 10) 
-		    {
-		    	state.secDuration = '0' + state.secDuration
-		    } 
-		    if (state.audio.currentTime > 0) 
-		    {
-		    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-		    }
-		    if(state.audio.ended)
-		    {
-		  		state.songID=""
-				state.pausedSong=""
-				state.isPlaying=false
-				state.audio.pause()  	
-		    }
-		})
 	},
 	SET_SONG_ID(state,data)
 	{

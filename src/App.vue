@@ -21,9 +21,14 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.google.com/?category=Handwriting&selection.family=Permanent+Marker');
+* {
+  font-family: 'Permanent Marker', sans-serif !important;
+}
 #app {
+  
+  font-family:'Permanent Marker' ,'Avenir', Helvetica, sans-serif !important;
   /*
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*text-align: center;
