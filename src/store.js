@@ -87,7 +87,7 @@ mutations:{
 	{
 		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended	)//The
 		{
-			console.log('New')
+			//console.log('New')
 			state.songIndex=0
 			if(state.songs.length>1)
 			{
@@ -115,6 +115,8 @@ mutations:{
 						}
 						else
 						{
+							state.audio.pause()
+							state.audio.currentTime=0
 							state.audio={}
 							state.audio = new Audio(element.directory)	
 						}
@@ -165,6 +167,8 @@ mutations:{
 						}
 						else
 						{
+							state.audio.pause()
+							state.audio.currentTime=0
 							state.audio={}
 							state.audio = new Audio(element.directory)	
 						}
@@ -216,7 +220,7 @@ mutations:{
 		}
 		else//Paused and then resumed
 		{
-			console.log('Resume')
+			//console.log('Resume')
 			//old song was paused then played again
 				
 			//state.directory = element.directory
@@ -569,31 +573,31 @@ getters:{
  },
 actions:{
 	loadData({commit},user){
-		axios.get('https://www.6itygang.com/api/view/albums/get.php?name='+user+'').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/albums/get.php?name='+user+'').then(function(res){
 			commit('SET_ALBUM_LOADER')
 			commit('SET_ALBUMS',res)
 		}).catch(function(err){
 			console.log(err)
 		})
-		axios.get('https://www.6itygang.com/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
 				commit('SET_SINGLE_LOADER')
 				commit('SET_SINGLES',res)
 		})
 	},
 	loadUser({commit},user)
 	{
-		axios.get('https://www.6itygang.com/api/view/user/get.php?name='+user+'').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/user/get.php?name='+user+'').then(function(res){
 			commit('SET_USER_LOADER')
 			commit('SET_USER',res)
 		})
 	},
 	loadAlbumData({commit},album)
 	{
-		axios.get('https://www.6itygang.com/api/view/albums/get.php?album_info='+album).then(function(res){
+		axios.get('http://localhost/Balfo/api/view/albums/get.php?album_info='+album).then(function(res){
 			commit('SET_ALBUM_INFO_LOADER')
 			commit('SET_ALBUM_INFO',res)
 		})
-		axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+album).then(function(res){
+		axios.get('http://localhost/Balfo/api/view/albums/get.php?album='+album).then(function(res){
 			commit('SET_SONG_LOADER')
 			commit('SET_SONG_LIST',res)//for the tracklist on playmusic.vue
 		})
@@ -603,7 +607,7 @@ actions:{
 		data = JSON.parse(data)
 		if(parseInt(data.type)==1)//single
 		{
-			axios.get('https://www.6itygang.com/api/view/songs/get.php?song='+data.id).then(function(res){
+			axios.get('http://localhost/Balfo/api/view/songs/get.php?song='+data.id).then(function(res){
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})
@@ -612,7 +616,7 @@ actions:{
 		}
 		else//album
 		{
-			axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+data.album_id).then(function(res){
+			axios.get('http://localhost/Balfo/api/view/albums/get.php?album='+data.album_id).then(function(res){
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})
@@ -645,12 +649,12 @@ actions:{
 	},
 	loadWelcomeData({commit})
 	{
-		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
 			commit('SET_ARTIST_DATA_LOADER')
 			commit('SET_MEMBERS_INFO',res)
 		})
 
-		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=members').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=members').then(function(res){
 			commit('SET_ARTIST_LOADER')
 			commit('SET_MEMBERS_DATA',res)	
 		})
@@ -660,7 +664,7 @@ actions:{
 		commit('SET_NAVIGATION_NAME',{name:data})
 	},
 	loadContactData({commit}){
-		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
+		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
 			commit('SET_CONTACT_LOADER')
 			commit('SET_CONTACT_INFO',res)
 		})
