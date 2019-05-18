@@ -43,3 +43,10 @@
 		}
 	}
 </script>
+<style>
+.container{
+	font-family:'Permanent Marker' ,'Avenir', Helvetica, sans-serif !important;
+	font-size: 1.2em;	
+}
+
+</style>

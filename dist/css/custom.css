@@ -8,4 +8,8 @@
   margin-bottom: 10px; 
 }
 
-
+@media(max-width: 475px){
+	.table.table-striped{
+		font-size:0.6em;	
+	}
+}

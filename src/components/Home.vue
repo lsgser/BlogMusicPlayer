@@ -3,8 +3,7 @@
   <center>
   </center>
   <br/>
-  <section class="container">
-    <div class="container" v-show="userIsLoaded">
+  <div v-show="userIsLoaded">
       <center>
         <div v-for="(u,index) in getUser" :key="index">
           <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
@@ -22,8 +21,7 @@
         <img class="gif-loader" src="gifs/Rolling.gif" />
         <h6>Loading Artist Description...</h6>
       </center>
-    </div>
-  </section>
+  </div>
   <hr/>
   <section class="my-work">
     <center>

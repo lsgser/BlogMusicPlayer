@@ -24,7 +24,7 @@ export default {
 #app {
   
   font-family:'Permanent Marker' ,'Avenir', Helvetica, sans-serif !important;
-  font-size: 1.2em;
+  font-size: 1em;
   /*
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,6 +32,7 @@ export default {
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
+
 .container{
     margin-bottom:2.2cm;
 }

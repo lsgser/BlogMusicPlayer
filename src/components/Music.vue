@@ -44,7 +44,7 @@
 						<!--
 						<a class="btn btn-outline-dark float-right" v-bind:download="s.song_name" v-bind:href="s.directory"><i class="fas fa-download fa-2x"></i></a>
 						-->
-						<button class="btn btn-outline-dark float-right" @click="Download(s.directory,s.song_name)"><i class="fas fa-download fa-2x"></i></button>
+						<button class="btn btn-outline-dark float-right" @click="Download(s.id)"><i class="fas fa-download fa-2x"></i></button>
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,6 @@
 </template>
 
 <script>
-	import axios from 'axios';	
 	export default{
 		name:'Music',
 		computed:
@@ -121,26 +120,10 @@
 			{
 				this.$store.dispatch('pauseAudio')
 			},
-			forceFileDownload(response,name){
-		      const url = window.URL.createObjectURL(new Blob([response.data]))
-		      const link = document.createElement('a')
-		      link.href = url
-		      link.setAttribute('download', name+'.mp3') //or any other extension
-		      document.body.appendChild(link)
-		      link.click()
-		    },
-		    Download(source_url,name){
-		    console.log(name)
-		      axios({
-		        method: 'get',
-		        url: source_url,
-		        responseType: 'arraybuffer'
-		      }).then(response => {
-		        
-		        this.forceFileDownload(response,name)
-		        
-		      }).catch(() => console.log('error occured'))
-    		}			
+			Download(song)
+			{
+				window.open("https://www.6itygang.com/api/download/get.php?song="+song)
+			}			
 		},
 		beforeMount:function()
 		{

@@ -82,7 +82,10 @@
 		    <tr v-for="(s,index) in getSongList" :key="index">
        			<td scope="row">{{index+1}}</td>
        			<td>{{s.song_name}}</td>
-       			<td><button type="button" class="btn btn-outline-primary" @click="Download(s.directory,s.song_name)">Download</button></td>
+       			<td><button type="button" class="btn btn-outline-primary" @click="Download(s.id)">Download</button></td>
+       			<!--
+       			<td><a :href="'http://localhost/Balfo/api/download/get.php?song='+s.id" class="btn btn-outline-primary" > Download</a></td>
+       			-->
        		</tr>
 		  </tbody>
 		</table>
@@ -100,7 +103,6 @@
 </template>
 
 <script>
-	import axios from 'axios';
 	export default{
 		name:'PlayMusic',
 		methods:{
@@ -109,27 +111,10 @@
 				this.index=index
 				this.$store.dispatch('playAudio',JSON.stringify({id:id,type:type,album_id:album_id}))
 			},
-			forceFileDownload(response,name){
-		      const url = window.URL.createObjectURL(new Blob([response.data]))
-		      const link = document.createElement('a')
-		      link.href = url
-		      link.setAttribute('download', name+'.mp3') //or any other extension
-		      document.body.appendChild(link)
-		      link.click()
-		    },
-		    Download(source_url,name){
-		      console.log(name)
-		      console.log(source_url)
-		      axios({
-		        method: 'get',
-		        url: source_url,
-		        responseType: 'arraybuffer'
-		      }).then(response => {
-		        
-		        this.forceFileDownload(response,name)
-		        
-		      }).catch(() => console.log('error occured'))
-    		}
+			Download(song)
+			{
+				window.open("https://www.6itygang.com/api/download/get.php?song="+song)
+			}
 		},
 		computed:{
 			getAlbumInfo()

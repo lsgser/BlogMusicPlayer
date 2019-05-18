@@ -85,12 +85,13 @@ mutations:{
 	},
 	PLAY_SONG(state)
 	{
-		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended	)//The
+		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended)
 		{
-			//console.log('New')
+			console.log('if')
 			state.songIndex=0
 			if(state.songs.length>1)
 			{
+				console.log('inner if')
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
 					{
@@ -101,27 +102,41 @@ mutations:{
 						state.songCover = element.art_cover
 						state.songName = element.song_name
 						state.artist=element.artists
-						state.firstPlay=true
 						state.isPlaying=true
 						state.isPaused=false
 						state.oldSongID=element.id
 						state.pausedSong=state.songID
 						if(state.audio.duration>0)//song is playing
 						{
+							console.log('IF')
 							state.audio.pause()
 							state.audio.currentTime=0
-							state.audio={}
+							state.audio=null
 							state.audio = new Audio(element.directory)
 						}
 						else
 						{
-							state.audio.pause()
-							state.audio.currentTime=0
-							state.audio={}
-							state.audio = new Audio(element.directory)	
+							console.log('ELSE')
+							//state.audio.pause()
+							if(state.firstPlay)
+							{
+								state.audio.pause()
+								if(state.audio.paused)
+								{
+									state.audio.currentTime=0
+								}
+								else
+								{
+									state.audio.currentTime = 0
+								}
+							}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										
+							state.audio=null
+							state.audio = new Audio(element.directory)
+							
 						}
+						state.firstPlay=true
 					}
-					/*
 					else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
 					{
 						state.directory = element.directory
@@ -138,14 +153,15 @@ mutations:{
 						state.pausedSong=state.songID
 						
 					}
-					*/
 				})
 			}
 			else
 			{
+				console.log("else")
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)
 					{
+						console.log("If")
 						state.directory = element.directory
 						state.artist=element.artists
 						state.songIndex=index
@@ -153,7 +169,6 @@ mutations:{
 						state.songID=element.id
 						state.songCover = element.art_cover
 						state.songName = element.song_name
-						state.firstPlay=true
 						state.isPlaying=true
 						state.isPaused=false
 						state.oldSongID=element.id
@@ -167,13 +182,21 @@ mutations:{
 						}
 						else
 						{
-							state.audio.pause()
+							if(state.firstPlay)
+							{
+								if(!state.audio.paused)
+								{
+									state.audio.pause()
+									//state.audio.currentTime=0
+								}	
+							}
+							
 							state.audio.currentTime=0
 							state.audio={}
 							state.audio = new Audio(element.directory)	
 						}
+						state.firstPlay=true
 					}
-					/*
 					else if(state.songID===element.id && state.oldSongID===element.id)
 					{
 						state.directory = element.directory
@@ -189,11 +212,11 @@ mutations:{
 						state.oldSongID=element.id
 						state.pausedSong=state.songID	
 					}
-					*/
 				})
 			}
 			state.audio.play()
 			state.audio.addEventListener('timeupdate',function(){
+				//console.log("EVENT")
 			    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
 			    state.min = parseInt((state.audio.currentTime / 60) % 60);
 			    if (state.sec < 10) {
@@ -573,31 +596,31 @@ getters:{
  },
 actions:{
 	loadData({commit},user){
-		axios.get('http://localhost/Balfo/api/view/albums/get.php?name='+user+'').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/albums/get.php?name='+user+'').then(function(res){
 			commit('SET_ALBUM_LOADER')
 			commit('SET_ALBUMS',res)
 		}).catch(function(err){
 			console.log(err)
 		})
-		axios.get('http://localhost/Balfo/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
 				commit('SET_SINGLE_LOADER')
 				commit('SET_SINGLES',res)
 		})
 	},
 	loadUser({commit},user)
 	{
-		axios.get('http://localhost/Balfo/api/view/user/get.php?name='+user+'').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/user/get.php?name='+user+'').then(function(res){
 			commit('SET_USER_LOADER')
 			commit('SET_USER',res)
 		})
 	},
 	loadAlbumData({commit},album)
 	{
-		axios.get('http://localhost/Balfo/api/view/albums/get.php?album_info='+album).then(function(res){
+		axios.get('https://www.6itygang.com/api/view/albums/get.php?album_info='+album).then(function(res){
 			commit('SET_ALBUM_INFO_LOADER')
 			commit('SET_ALBUM_INFO',res)
 		})
-		axios.get('http://localhost/Balfo/api/view/albums/get.php?album='+album).then(function(res){
+		axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+album).then(function(res){
 			commit('SET_SONG_LOADER')
 			commit('SET_SONG_LIST',res)//for the tracklist on playmusic.vue
 		})
@@ -607,7 +630,7 @@ actions:{
 		data = JSON.parse(data)
 		if(parseInt(data.type)==1)//single
 		{
-			axios.get('http://localhost/Balfo/api/view/songs/get.php?song='+data.id).then(function(res){
+			axios.get('https://www.6itygang.com/api/view/songs/get.php?song='+data.id).then(function(res){
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})
@@ -616,7 +639,7 @@ actions:{
 		}
 		else//album
 		{
-			axios.get('http://localhost/Balfo/api/view/albums/get.php?album='+data.album_id).then(function(res){
+			axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+data.album_id).then(function(res){
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})
@@ -649,12 +672,12 @@ actions:{
 	},
 	loadWelcomeData({commit})
 	{
-		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
 			commit('SET_ARTIST_DATA_LOADER')
 			commit('SET_MEMBERS_INFO',res)
 		})
 
-		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=members').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=members').then(function(res){
 			commit('SET_ARTIST_LOADER')
 			commit('SET_MEMBERS_DATA',res)	
 		})
@@ -664,7 +687,7 @@ actions:{
 		commit('SET_NAVIGATION_NAME',{name:data})
 	},
 	loadContactData({commit}){
-		axios.get('http://localhost/Balfo/api/view/6ity_gang/get.php?type=info').then(function(res){
+		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
 			commit('SET_CONTACT_LOADER')
 			commit('SET_CONTACT_INFO',res)
 		})
