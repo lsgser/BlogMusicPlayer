@@ -1,14 +1,21 @@
 .img-custom {
     max-width: 100%;
 }
+
 body{
     background-color:#ababab !important;
 }
+
+.btn-outline-light {
+    color: #9c9e9f !important;
+    border-color: #85898d !important;
+}
+
 .card {
   margin: 0 auto;
   float: none;
   margin-bottom: 10px; 
-  background-color:#dadeea !important;
+  background-color:#d5d4d4 !important;
 }
 
 @media(max-width: 475px){
