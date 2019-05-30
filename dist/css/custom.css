@@ -1,11 +1,14 @@
 .img-custom {
     max-width: 100%;
 }
-
+body{
+    background-color:#ababab !important;
+}
 .card {
   margin: 0 auto;
   float: none;
   margin-bottom: 10px; 
+  background-color:#dadeea !important;
 }
 
 @media(max-width: 475px){
