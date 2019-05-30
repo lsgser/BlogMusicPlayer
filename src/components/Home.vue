@@ -58,7 +58,7 @@
   <hr v-show="getAlbums.length"/>
   <div v-for="(u,index) in getUser" :key="index">
     <center>
-      <button class="btn btn-outline-dark" @click="Music">Go To {{u.artist_name}}'s Music</button>
+      <button class="btn btn-dark" @click="Music">Go To {{u.artist_name}}'s Music</button>
     </center>
   </div>
 </div>  

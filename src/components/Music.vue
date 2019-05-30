@@ -12,7 +12,7 @@
 						<h5 class="card-title">{{a.album_name.toUpperCase()}}</h5>
 						<p class="card-text">Genre : {{a.genre.toUpperCase()}}</p>
 						<center>
-							<button class="btn btn-outline-dark" @click="GoToAlbum(a.id)">Go To Album Songs</button>
+							<button class="btn btn-dark" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 						</center>
 					</div>
 				</div>

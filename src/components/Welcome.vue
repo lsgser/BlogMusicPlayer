@@ -29,7 +29,7 @@
             <img class="card-img-top" v-bind:src="d.picture" alt="" />
             <div class="card-body">  
               <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
-                <button class="btn btn-outline-dark" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
+                <button class="btn btn-dark" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
             </div>
           </div>
         </div>

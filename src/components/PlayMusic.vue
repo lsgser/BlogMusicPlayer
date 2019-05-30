@@ -14,7 +14,7 @@
       	</center>
 	</div>
 	<div v-show="songIsLoaded">
-		<button type="button" data-toggle="modal" data-target="#downloadModal" class="btn btn-outline-success" style="margin-top:2em;">Click Here To Download</button>
+		<button type="button" data-toggle="modal" data-target="#downloadModal" class="btn btn-success" style="margin-top:2em;">Click Here To Download</button>
 	</div>
 	<br>
 	<br>
