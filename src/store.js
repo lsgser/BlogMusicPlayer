@@ -49,7 +49,7 @@ state:{
 	contactIsLoaded:false,
 	albumInfoIsLoaded:false,
 	songIsLoaded:false,
-	songShareLoaded:false
+	songShareIsLoaded:false
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -88,14 +88,16 @@ mutations:{
 	{
 		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended)
 		{
-			//console.log('if')
+			console.log('if')
 			state.songIndex=0
 			if(state.songs.length>1)
 			{
 				//console.log('inner if')
+				console.log(state.songs.length)
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
 					{
+						console.log('enter 1')
 						state.directory = element.directory
 						state.songIndex=index
 						state.albumID=element.album_id
@@ -140,6 +142,7 @@ mutations:{
 					}
 					else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
 					{
+						console.log("enter 2")
 						state.directory = element.directory
 						state.songIndex=index
 						state.albumID=element.album_id
@@ -547,14 +550,26 @@ mutations:{
 	},
 	SET_SONG(state,data)
 	{
-		state.songCover = data.data.art_cover
-		state.songName = data.data.song_name
-		state.artist = data.data.artists
-		state.type = data.data.type
-		state.songID = data.data.id
-		state.albumID = data.data.album_id
+		console.log(data.data)
+		/*
+			If is not set then we can set the content,if it 
+			is already set then we shouldn't edit anything,since the user will be on the main pages
+		*/
+		if(!(state.songCover || state.songName || state.artist || state.type || state.type || state.songID || state.albumID != ''))
+		{
+			state.songCover = data.data[0].art_cover
+			state.songName = data.data[0].song_name
+			state.artist = data.data[0].artists
+			state.type = data.data[0].type
+			state.songID = data.data[0].id
+			state.albumID = data.data[0].album_id	
+		}
+		
+		//state.oldSongID = data.data[0].id//for pause and play,when we pause we remove reset the songID,but the oldSongID doesn't change
+
+		state.songShareIsLoaded = true
 	},
-	SET_SONG_SHARE_LOADER()
+	SET_SONG_SHARE_LOADER(state)
 	{
 		state.songShareIsLoaded = false
 	}
@@ -606,7 +621,8 @@ getters:{
 	userIsLoaded:state=>{return state.userIsLoaded},
 	contactIsLoaded:state=>{return state.contactIsLoaded},
 	albumInfoIsLoaded:state=>{return state.albumInfoIsLoaded},
-	songIsLoaded:state=>{return state.songIsLoaded}
+	songIsLoaded:state=>{return state.songIsLoaded},
+	getSongShareIsLoaded:state=>{return state.songShareIsLoaded}
  },
 actions:{
 	loadData({commit},user){
@@ -642,6 +658,7 @@ actions:{
 	playAudio({commit},data)
 	{
 		data = JSON.parse(data)
+		
 		if(parseInt(data.type)==1)//single
 		{
 			axios.get('https://www.6itygang.com/api/view/songs/get.php?song='+data.id).then(function(res){
@@ -714,8 +731,11 @@ actions:{
 	songData({commit},data)
 	{
 		data = JSON.parse(data)
+		commit('SET_SONG_SHARE_LOADER')
+		
 		axios.get('https://www.6itygang.com/api/view/song/get.php?song='+data.id).then(function(res){
-			
+			console.log(res.data[0])
+			commit('SET_SONG',res)
 		})
 	}
 }
