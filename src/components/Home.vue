@@ -4,23 +4,23 @@
   </center>
   <br/>
   <div v-show="userIsLoaded">
-      <center>
-        <div v-for="(u,index) in getUser" :key="index">
-          <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
-          <hr/>
-          <br/>
-          <h4><u>About {{u.artist_name}}</u></h4>
-          <p v-html="u.about">
-            {{u.about}}
-          </p>
-        </div>
-      </center>
-    </div>
-    <div v-show="!userIsLoaded">
-      <center>
-        <img class="gif-loader" src="gifs/Rolling.gif" />
-        <h6>Loading Artist Description...</h6>
-      </center>
+    <center>
+      <div v-for="(u,index) in getUser" :key="index">
+        <img v-bind:src="u.picture" width="200px" height="200px" class="rounded-circle img-custom" alt=""/>
+        <hr/>
+        <br/>
+        <h4><u>About {{u.artist_name}}</u></h4>
+        <p v-html="u.about">
+          {{u.about}}
+        </p>
+      </div>
+    </center>
+  </div>
+  <div v-show="!userIsLoaded">
+    <center>
+      <img class="gif-loader" src="gifs/Rolling.gif" />
+      <h6>Loading Artist Description...</h6>
+    </center>
   </div>
   <hr/>
   <section class="my-work">

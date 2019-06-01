@@ -49,6 +49,7 @@ state:{
 	contactIsLoaded:false,
 	albumInfoIsLoaded:false,
 	songIsLoaded:false,
+	songShareLoaded:false
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -87,11 +88,11 @@ mutations:{
 	{
 		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended)
 		{
-			console.log('if')
+			//console.log('if')
 			state.songIndex=0
 			if(state.songs.length>1)
 			{
-				console.log('inner if')
+				//console.log('inner if')
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
 					{
@@ -108,7 +109,7 @@ mutations:{
 						state.pausedSong=state.songID
 						if(state.audio.duration>0)//song is playing
 						{
-							console.log('IF')
+							//console.log('IF')
 							state.audio.pause()
 							state.audio.currentTime=0
 							state.audio=null
@@ -116,7 +117,7 @@ mutations:{
 						}
 						else
 						{
-							console.log('ELSE')
+							//console.log('ELSE')
 							//state.audio.pause()
 							if(state.firstPlay)
 							{
@@ -157,7 +158,7 @@ mutations:{
 			}
 			else
 			{
-				console.log("else")
+				//console.log("else")
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)
 					{
@@ -517,7 +518,7 @@ mutations:{
 	},
 	SET_ALBUM_LOADER(state)
 	{
-		state.albumIsLoaded=true
+		state.albumIsLoaded=false
 	},
 	SET_SINGLE_LOADER(state)
 	{
@@ -543,6 +544,19 @@ mutations:{
 	{
 		let newTime = data.clickedSection*state.audio.duration/data.barSize
 		state.audio.currentTime = newTime
+	},
+	SET_SONG(state,data)
+	{
+		state.songCover = data.data.art_cover
+		state.songName = data.data.song_name
+		state.artist = data.data.artists
+		state.type = data.data.type
+		state.songID = data.data.id
+		state.albumID = data.data.album_id
+	},
+	SET_SONG_SHARE_LOADER()
+	{
+		state.songShareIsLoaded = false
 	}
 
 },
@@ -596,32 +610,32 @@ getters:{
  },
 actions:{
 	loadData({commit},user){
+		commit('SET_ALBUM_LOADER')
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?name='+user+'').then(function(res){
-			commit('SET_ALBUM_LOADER')
 			commit('SET_ALBUMS',res)
 		}).catch(function(err){
 			console.log(err)
 		})
+		commit('SET_SINGLE_LOADER')
 		axios.get('https://www.6itygang.com/api/view/songs/get.php?name='+user+'&album=0').then(function(res){
-				commit('SET_SINGLE_LOADER')
 				commit('SET_SINGLES',res)
 		})
 	},
 	loadUser({commit},user)
 	{
+		commit('SET_USER_LOADER')
 		axios.get('https://www.6itygang.com/api/view/user/get.php?name='+user+'').then(function(res){
-			commit('SET_USER_LOADER')
 			commit('SET_USER',res)
 		})
 	},
 	loadAlbumData({commit},album)
 	{
+		commit('SET_ALBUM_INFO_LOADER')
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?album_info='+album).then(function(res){
-			commit('SET_ALBUM_INFO_LOADER')
 			commit('SET_ALBUM_INFO',res)
 		})
+		commit('SET_SONG_LOADER')
 		axios.get('https://www.6itygang.com/api/view/albums/get.php?album='+album).then(function(res){
-			commit('SET_SONG_LOADER')
 			commit('SET_SONG_LIST',res)//for the tracklist on playmusic.vue
 		})
 	},
@@ -672,13 +686,13 @@ actions:{
 	},
 	loadWelcomeData({commit})
 	{
+		commit('SET_ARTIST_DATA_LOADER')
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
-			commit('SET_ARTIST_DATA_LOADER')
 			commit('SET_MEMBERS_INFO',res)
 		})
 
+		commit('SET_ARTIST_LOADER')
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=members').then(function(res){
-			commit('SET_ARTIST_LOADER')
 			commit('SET_MEMBERS_DATA',res)	
 		})
 	},
@@ -688,7 +702,7 @@ actions:{
 	},
 	loadContactData({commit}){
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
-			commit('SET_CONTACT_LOADER')
+			commit('SET_CONTACT_LOADER')//can keep it here,contacts don't change frequently
 			commit('SET_CONTACT_INFO',res)
 		})
 	},
@@ -696,6 +710,13 @@ actions:{
 	{
 		data = JSON.parse(data)
 		commit('SET_NEW_TIME',data)
+	},
+	songData({commit},data)
+	{
+		data = JSON.parse(data)
+		axios.get('https://www.6itygang.com/api/view/song/get.php?song='+data.id).then(function(res){
+			
+		})
 	}
 }
 })
