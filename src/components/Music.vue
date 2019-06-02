@@ -15,6 +15,7 @@
 							<button class="btn btn-dark" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 						</center>
 					</div>
+					<a v-bind:href="'https://twitter.com/share?url=https:/www.6itygang.com/%23/'+getProfileName+'/music-play/'+a.id+'&text=Listen+to+'+getProfileName+'s+album+called+'+a.album_name+'+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-primary btn-lg" target="_blank"><i class="fab fa-twitter"></i></a>
 				</div>
 			</div>
 		</div>
@@ -46,6 +47,7 @@
 						-->
 						<button class="btn btn-outline-dark float-right" @click="Download(s.id)"><i class="fas fa-download fa-2x"></i></button>
 					</div>
+					<a v-bind:href="'https://twitter.com/share?url=https:/www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-primary btn-lg" target="_blank"><i class="fab fa-twitter"></i></a>
 				</div>
 			</div>
 		</div>
@@ -96,6 +98,10 @@
 			singleIsLoaded()
 			{
 				return this.$store.getters.singleIsLoaded
+			},
+			getProfileName()
+			{
+				return this.name
 			}
 		},
 		methods:

@@ -2,7 +2,7 @@
 	<div class="container">
 		<div v-show="getSongShareIsLoaded">
 			<div class="align-center">
-				<img v-bind:src="getSongCover" class="cover"/>
+				<img v-bind:src="getSongCover" class="cover img-thumbnail"/>
 				<h5 class="title">{{getSongName}} - {{getArtist}}</h5>
 				<button div class="btn btn-light song play" v-show="!isPlaying" @click="Play">
 					<i class="fas fa-play fa-2x"></i>
@@ -86,7 +86,7 @@
 					var data={id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}	
 				}
 				
-				console.log(data)
+				//console.log(data)
 				this.$store.dispatch('playAudio',JSON.stringify(data))
 			},
 			Pause()
@@ -97,7 +97,7 @@
 		},
 		beforeMount:function()
 		{
-			console.log(this.$route.params.id)
+			//console.log(this.$route.params.id)
 			var data = {id:this.$route.params.id}
 
 			//Another song has been played,meaning you're on the main pages
@@ -121,13 +121,14 @@
 
 .align-center .btn.btn-light.song.play{
 	position: absolute;
-	opacity: 0.75;
+	opacity: 0.9;
 	border-radius: 1.5rem;
+	margin-bottom: 4em;
 }
 
 .align-center .btn.btn-light.song.pause{
 	position: absolute;
-	opacity: 0.75;
+	opacity: 0.9;
 	border-radius: 1.5rem;
 	margin-bottom: 4em;
 }
@@ -138,7 +139,7 @@
 		color:white;
 		background: black;
 		margin-bottom: 25em;
-		opacity:0.6;
+		opacity:0.8;
 }
 
 @media(max-width: 575px)
@@ -147,8 +148,8 @@
 		position:absolute;
 		color:white;
 		background: black;
-		opacity:0.6;
-		margin-bottom:13em;
+		opacity:0.8;
+		margin-bottom:18em;
 	}	
 }
 

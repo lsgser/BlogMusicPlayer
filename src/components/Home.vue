@@ -13,6 +13,9 @@
         <p v-html="u.about">
           {{u.about}}
         </p>
+        <hr>
+        <h4><u>Share {{u.artist_name}}'s page link on Twitter</u></h4>
+        <a v-bind:href="'https://twitter.com/share?url=https:/www.6itygang.com/%23/'+u.artist_name+'&text=Check+out+'+u.artist_name+'s+6ity+Gang+page+for+great+Hip-Hop+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-primary btn-lg" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
     </center>
   </div>
@@ -114,5 +117,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.fab.fa-twitter{
+  color:lightblue;
+}
 </style>

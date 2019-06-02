@@ -88,16 +88,16 @@ mutations:{
 	{
 		if(!state.audio.paused || state.songID != state.oldSongID || state.audio.ended)
 		{
-			console.log('if')
+			//console.log('if')
 			state.songIndex=0
 			if(state.songs.length>1)
 			{
 				//console.log('inner if')
-				console.log(state.songs.length)
+				//console.log(state.songs.length)
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)//new song selected
 					{
-						console.log('enter 1')
+						//console.log('enter 1')
 						state.directory = element.directory
 						state.songIndex=index
 						state.albumID=element.album_id
@@ -142,7 +142,7 @@ mutations:{
 					}
 					else if(state.songID===element.id && state.oldSongID===element.id)//old song was paused then played again
 					{
-						console.log("enter 2")
+						//console.log("enter 2")
 						state.directory = element.directory
 						state.songIndex=index
 						state.albumID=element.album_id
@@ -165,7 +165,7 @@ mutations:{
 				state.songs.forEach(function(element,index){
 					if(state.songID===element.id && state.oldSongID!==element.id)
 					{
-						console.log("If")
+						//console.log("If")
 						state.directory = element.directory
 						state.artist=element.artists
 						state.songIndex=index
@@ -550,7 +550,7 @@ mutations:{
 	},
 	SET_SONG(state,data)
 	{
-		console.log(data.data)
+		//console.log(data.data)
 		/*
 			If is not set then we can set the content,if it 
 			is already set then we shouldn't edit anything,since the user will be on the main pages
