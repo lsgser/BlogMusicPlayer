@@ -108,7 +108,7 @@
 		       			<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/song/'+s.id+'&quote='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+6itygang.com/%23/song/'+s.id" class="btn btn-primary" target="_blank"><i class="fab fa-facebook"></i>
 						</a>
 					</td>
-	       			<td><a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info" target="_blank"><i class="fab fa-twitter"></i></a>
+	       			<td><a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info" target="_blank"><i class="fab fa-twitter"></i></a>
 	       			</td>
 	       		</tr>
 			  </tbody>
@@ -180,5 +180,13 @@
 <style>
 	.list-group-item{
 		background-color:#ede9e9;
+	}
+
+	.twitter{
+	  border-radius: 0;
+	}
+
+	.facebook{
+	  border-radius: 0;
 	}
 </style>

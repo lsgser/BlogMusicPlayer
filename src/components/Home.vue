@@ -16,10 +16,13 @@
         <hr>
         <h4><u>Share {{u.artist_name}}'s page link on Social Media</u></h4>
         <div>
-          <a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+u.artist_name+'&quote=Check+out+'+u.artist_name+'s+6ity+Gang+page+for+great+music+on:6itygang.com/%23/'+u.artist_name" class="btn btn-primary btn-lg mr-3" target="_blank"><i class="fab fa-facebook"></i>
+          <a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+u.artist_name+'&quote=Check+out+'+u.artist_name+'%27s+6ity+Gang+page+for+music+on:6itygang.com/%23/'+u.artist_name" class="btn btn-primary btn-lg mr-3" target="_blank"><i class="fab fa-facebook"></i>
             </a>
-          <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+u.artist_name+'&text=Check+out+'+u.artist_name+'s+6ity+Gang+page+for+great+Hip-Hop+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg" target="_blank"><i class="fab fa-twitter"></i>
+          <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+u.artist_name+'&text=Check+out+'+u.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg mr-3" target="_blank"><i class="fab fa-twitter"></i>
           </a>
+          <!--
+            <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" class="btn btn-danger btn-lg" target="_blank" data-pin-custom="true"><i class="fab fa-pinterest"></i></a>
+          -->
         </div>
       </div>
     </center>
@@ -65,9 +68,7 @@
   </section> 
   <hr v-show="getAlbums.length"/>
   <div v-for="(u,index) in getUser" :key="index">
-    <center>
-      <button class="btn btn-dark" @click="Music">Go To {{u.artist_name}}'s Music</button>
-    </center>
+      <button class="btn btn-dark btn-lg btn-block" @click="Music">Go To {{u.artist_name}}'s Music</button>
   </div>
 </div>  
 </template>

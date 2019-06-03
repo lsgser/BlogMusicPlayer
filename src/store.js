@@ -703,7 +703,7 @@ actions:{
 	},
 	loadWelcomeData({commit})
 	{
-		commit('SET_ARTIST_DATA_LOADER')
+		//commit('SET_ARTIST_DATA_LOADER')
 		axios.get('https://www.6itygang.com/api/view/6ity_gang/get.php?type=info').then(function(res){
 			commit('SET_MEMBERS_INFO',res)
 		})

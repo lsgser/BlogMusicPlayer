@@ -6,6 +6,13 @@
     background-color: #63676b !important;
     border-color: #343a40 !important;
 }
+
+.btn-dark:hover{
+  background-color: #212529 !important;
+}
+.btn-dark.sending{
+  background-color: #c5c7c9 !important;
+}
 body{
     background-color:#ababab !important;
 }

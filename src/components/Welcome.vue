@@ -31,9 +31,9 @@
               <h5 class="card-title"><u>{{d.artist_name}}</u></h5>
                 <button class="btn btn-dark" @click="GoToProfile(d.artist_name)">Go To {{d.artist_name}}'s Page</button>
             </div>
-            <a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+d.artist_name+'&quote=Check+out+'+d.artist_name+'s+6ity+Gang+page+for+great+music+on:6itygang.com/%23/'+d.artist_name" class="btn btn-primary btn-lg mb-2" target="_blank"><i class="fab fa-facebook"></i>
+            <a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+d.artist_name+'&quote=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:6itygang.com/%23/'+d.artist_name" class="btn btn-primary btn-lg mb-2 facebook" target="_blank"><i class="fab fa-facebook"></i>
             </a>
-          <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+d.artist_name+'&text=Check+out+'+d.artist_name+'s+6ity+Gang+page+for+great+Hip-Hop+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg" target="_blank"><i class="fab fa-twitter"></i>
+          <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+d.artist_name+'&text=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg twitter" target="_blank"><i class="fab fa-twitter"></i>
           </a>
           </div>
         </div>
@@ -102,3 +102,12 @@ export default {
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+.twitter{
+  border-radius: 0;
+}
+
+.facebook{
+  border-radius: 0;
+}
+</style>

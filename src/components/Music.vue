@@ -2,7 +2,7 @@
 <div class="container">
 	<center><h2><u>Music</u></h2></center>
 	<br/>
-	<h3 class="col-sm-1">Album(s)</h3>
+	<h3 class="col-sm-1"><u>Album(s)</u></h3>
 	<div v-show="albumIsLoaded">
 		<div class="row" v-if="getAlbums.length">
 			<div class="col-sm-4" v-for="(a,index) in getAlbums" :key ="index">
@@ -15,9 +15,9 @@
 							<button class="btn btn-dark" @click="GoToAlbum(a.id)">Go To Album Songs</button>
 						</center>
 					</div>
-					<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+getProfileName+'/music-play/'+a.id+'&quote=Click+Here+to+Stream+or+to+Download+'+getProfileName+'s+album+called+'+a.album_name" class="btn btn-primary btn-lg mb-2" target="_blank"><i class="fab fa-facebook"></i>
+					<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+getProfileName+'/music-play/'+a.id+'&quote=Click+Here+to+Stream+or+to+Download+'+getProfileName+'%27s+album+called+'+a.album_name" class="btn btn-primary btn-lg mb-2 facebook" target="_blank"><i class="fab fa-facebook"></i>
 					</a>
-					<a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+getProfileName+'/music-play/'+a.id+'&text=Click+Here+to+Stream+or+Download+'+getProfileName+'s+album+called+'+a.album_name+'+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info btn-lg" target="_blank"><i class="fab fa-twitter"></i>
+					<a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+getProfileName+'/music-play/'+a.id+'&text=Click+Here+to+Stream+or+Download+'+getProfileName+'%27s+album+called+'+a.album_name+'+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info btn-lg twitter" target="_blank"><i class="fab fa-twitter"></i>
 					</a>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
       </center>
     </div>
 	<br>
-	<h3 class="col-sm-1">Single(s)</h3>
+	<h3 class="col-sm-1"><u>Single(s)</u></h3>
 	<div v-show="singleIsLoaded">
 		<div class="row" v-if="getSingleSong.length">
 			<div class="col-sm-4"  v-for="(s,index) in getSingleSong" :key ="index">
@@ -50,9 +50,9 @@
 						-->
 						<button class="btn btn-outline-dark float-right" @click="Download(s.id)"><i class="fas fa-download fa-2x"></i></button>
 					</div>
-					<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/song/'+s.id+'&quote='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+6itygang.com/%23/song/'+s.id" class="btn btn-primary mb-2" target="_blank"><i class="fab fa-facebook"></i>
+					<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/song/'+s.id+'&quote='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+6itygang.com/%23/song/'+s.id" class="btn btn-primary mb-2 facebook" target="_blank"><i class="fab fa-facebook"></i>
 					</a>
-					<a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info btn-lg" target="_blank"><i class="fab fa-twitter"></i></a>
+					<a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info btn-lg twitter" target="_blank"><i class="fab fa-twitter"></i></a>
 				</div>
 			</div>
 		</div>
