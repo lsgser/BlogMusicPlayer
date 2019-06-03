@@ -4,10 +4,10 @@
 			<div class="align-center">
 				<img v-bind:src="getSongCover" class="cover img-thumbnail"/>
 				<h5 class="title">{{getSongName}} - {{getArtist}}</h5>
-				<button div class="btn btn-light song play" v-show="!isPlaying" @click="Play">
+				<button div class="btn btn-light  btn-lg  song play" v-show="!isPlaying" @click="Play">
 					<i class="fas fa-play fa-2x"></i>
 				</button>
-				<button class="btn btn-light song pause" v-show="isPlaying" @click="Pause">
+				<button class="btn btn-light btn-lg song pause" v-show="isPlaying" @click="Pause">
         			<i class="fas fa-pause fa-2x"></i>
       			</button>
 			</div>
@@ -71,9 +71,10 @@
 		{
 			Play()
 			{
+				var data 
 				if(this.getSongID)//first time playing the audio
 				{
-					var data={id:this.getSongID,type:this.getType,album_id:this.getAlbumID}
+					 data={id:this.getSongID,type:this.getType,album_id:this.getAlbumID}
 				}	
 				else 
 				{
@@ -83,7 +84,7 @@
 						original id value that existed when the play button was clicked for the first 
 						time
 					*/
-					var data={id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}	
+					data={id:this.getOldSongID,type:this.getType,album_id:this.getAlbumID}	
 				}
 				
 				//console.log(data)
@@ -121,16 +122,14 @@
 
 .align-center .btn.btn-light.song.play{
 	position: absolute;
-	opacity: 0.9;
-	border-radius: 1.5rem;
-	margin-bottom: 4em;
+	/*opacity: 0.9;*/
+	margin-bottom: 1em;
 }
 
 .align-center .btn.btn-light.song.pause{
 	position: absolute;
-	opacity: 0.9;
-	border-radius: 1.5rem;
-	margin-bottom: 4em;
+	/*opacity: 0.9;*/
+	margin-bottom: 1em;
 }
 
 
@@ -149,7 +148,7 @@
 		color:white;
 		background: black;
 		opacity:0.8;
-		margin-bottom:18em;
+		margin-bottom:20em;
 	}	
 }
 

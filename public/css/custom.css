@@ -1,7 +1,11 @@
 .img-custom {
     max-width: 100%;
 }
-
+.btn-dark {
+    color: #fff!important;
+    background-color: #63676b !important;
+    border-color: #343a40 !important;
+}
 body{
     background-color:#ababab !important;
 }

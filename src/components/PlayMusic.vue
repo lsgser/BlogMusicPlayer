@@ -15,7 +15,7 @@
 	</div>
 	<div v-show="songIsLoaded">
 		<button type="button" data-toggle="modal" data-target="#downloadModal" class="btn btn-success" style="margin-top:2em;">Click Here To Download</button>
-		<button type="button" data-toggle="modal" data-target="#shareModal" class="btn btn-primary ml-1" style="margin-top:2em;">Share on Twitter</button>
+		<button type="button" data-toggle="modal" data-target="#shareModal" class="btn btn-primary ml-1" style="margin-top:2em;">Share on Social Media</button>
 	</div>
 	<br>
 	<br>
@@ -84,28 +84,36 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Share on Twitter</h4>
+        <h4 class="modal-title">Share on Social Media</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-       <table class="table table-striped">
-		  <thead>
-		    <tr>
-		      <th scope="col">Track</th>
-	       	  <th scope="col">Song</th>
-	       	  <th scope="col">Share song on Twitter</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr v-for="(s,index) in getSongList" :key="index">
-       			<td scope="row">{{index+1}}</td>
-       			<td>{{s.song_name}}</td>
-       			<td><a v-bind:href="'https://twitter.com/share?url=https:/www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-primary btn-lg" target="_blank"><i class="fab fa-twitter"></i></a></td>
-       		</tr>
-		  </tbody>
-		</table>
+      	<div class="table-responsive">
+	       <table class="table table-striped" style="scroll-direction">
+			  <thead>
+			    <tr>
+			      <th scope="col">Track</th>
+		       	  <th scope="col">Song</th>
+		       	  <th scope="col">Share on Facebook</th>
+		       	  <th scope="col">Share on Twitter</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr v-for="(s,index) in getSongList" :key="index">
+	       			<td scope="row">{{index+1}}</td>
+	       			<td>{{s.song_name}}</td>
+	       			<td>
+		       			<a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/song/'+s.id+'&quote='+s.song_name+'+By+'+s.artists+'+.+Listen+to+it+on+6itygang.com/%23/song/'+s.id" class="btn btn-primary" target="_blank"><i class="fab fa-facebook"></i>
+						</a>
+					</td>
+	       			<td><a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/song/'+s.id+'&text='+s.song_name+'+By+'+s.artists+'+Listen+to+it+on+the+following+link:&hashtags=6itygang,6ity_gang'" class="btn btn-info" target="_blank"><i class="fab fa-twitter"></i></a>
+	       			</td>
+	       		</tr>
+			  </tbody>
+			</table>
+		</div>
       </div>
 
       <!-- Modal footer -->
