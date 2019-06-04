@@ -23,15 +23,19 @@
       <li class="list-group-item list-group-item">JQUERY</li>
       <li class="list-group-item list-group-item">BOOTSTRAP 3 & 4</li>
       <li class="list-group-item list-group-item">JAVA</li>
-      <p>I developed this site with PHP, VUEjs, JQuery and Bootstrap 4,I also added a few CSS3 custom style sheets that I made.</p>
+      <p>I developed this site with PHP , VUE.js , JQuery and Bootstrap 4 , I also added a few CSS3 custom style sheets that I made.</p>
       <p>This site works via a REST API that I created with PHP 7 where the PHP scripts communicate with the MYSQL relational database to send a json response to the client.</p>
       <hr>
       <h4><u>Contacts</u></h4>
-      <p>If you want a website or a web app you can contact me on:</p>
+      <!--
+        <p>If you want a website or a web app you can contact me on:</p>
+      -->
       <p>Email: <a href="mailto:lsg.seritili@gmail.com">lsg.seritili@gmail.com</a></p>
-      <p>Home: <span style="color:#007bff;">016 592 5003</span></p>
-      <p>Mobile1(Also WhatsApp): <span style="color:#007bff;">083 208 7080</span></p>
-      <p>Mobile2: <span style="color:#007bff;">065 941 9807</span></p>
+      <!--
+        <p>Home: <span style="color:#007bff;">016 592 5003</span></p>
+        <p>Mobile1(Also WhatsApp): <span style="color:#007bff;">083 208 7080</span></p>
+        <p>Mobile2: <span style="color:#007bff;">065 941 9807</span></p>
+      -->
     </center>
     </div>
   </section> 

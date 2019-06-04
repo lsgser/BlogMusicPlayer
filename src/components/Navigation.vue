@@ -22,7 +22,7 @@
         </li>
       -->
       <li class="nav-item">
-        <router-link class="btn btn-outline-light" id="contact" to="/contacts" @click.native="Contacts">Contacts</router-link>
+        <router-link class="btn btn-outline-light" id="contact" to="/contacts" @click.native="Contacts">Contact Us</router-link>
       </li>
     </ul>
   </div>	

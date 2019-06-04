@@ -24,6 +24,7 @@
 		  <button class="btn btn-dark btn-lg btn-block" @click="Send" v-show="!Sending">Send</button>
 		  <p class="btn btn-dark btn-lg btn-block sending" v-show="Sending"><img src="gifs/Rolling_Dark_Blue.gif" width="20px" height="20px"/></p>
 		</form>
+		<center><router-link class="btn btn-outline-dark mt-5" to="/developer" >Developer of the Site</router-link></center>
 	</div>
 </template>
 
