@@ -33,7 +33,7 @@
             </div>
             <a v-bind:href="'https://www.facebook.com/share.php?u=https://www.6itygang.com/%23/'+d.artist_name+'&quote=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:6itygang.com/%23/'+d.artist_name" class="btn btn-primary btn-lg mb-2 facebook" target="_blank"><i class="fab fa-facebook"></i>
             </a>
-            <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+d.artist_name+'&text=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg twitter mb-2" target="_blank"><i class="fab fa-twitter"></i>
+            <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+d.artist_name+'&text=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg twitter" target="_blank"><i class="fab fa-twitter"></i>
             </a>
             <!--
               <button type="button" class="btn btn-secondary btn-lg copy"><i class="far fa-copy"></i></button>
