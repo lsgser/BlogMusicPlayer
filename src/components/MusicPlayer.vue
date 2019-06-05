@@ -16,7 +16,7 @@
     </center>
   </nav>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-music-player" v-show="getFirstPlay">
-    <img v-bind:src="getSongCover" class="song-image" width="79"  height="79"/>
+    <img v-bind:src="getSongCover" data-toggle="modal" data-target="#musicModal" class="song-image" width="79"  height="79"/>
     <center class="centering"> 
       <button class="btn btn-light backwards" @click="Back">
         <i class="fas fa-backward fa-2x"></i>
@@ -31,8 +31,37 @@
         <i class="fas fa-forward fa-2x"></i>
       </button>
     </center>   
-  </nav> 
+  </nav>
+  <div class="modal" id="musicModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">{{getArtist}} - {{getSong}}</h5>
+          <button type="button" class="close" data-dismiss="modal" style="color: black;">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <center>
+            <img v-bind:src="getSongCover" class="song-image img-thumbnail" width="400px"  height="400px"/>
+          </center>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <div class="mr-auto" v-show ="parseInt(getType)==2">
+             <button type="button" class="btn btn-outline-dark" @click="Album" data-dismiss="modal">Go to album</button>   
+          </div>
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div> 
 </div>
+
 </template>
 
 <script>
@@ -67,6 +96,10 @@ export default {
         this.$store.dispatch('changeTime',JSON.stringify({clickedSection:mouseX,barSize:barsize}))
       }
 
+    },
+    Album()
+    {
+      this.$router.push({path:`/${this.getCurrentArtist}/music-play/${this.getAlbumID}`})
     }
 	},
   computed:{
@@ -120,6 +153,10 @@ export default {
     getBarDuration()
     {
       return this.$store.getters.getChangingTime
+    },
+    getCurrentArtist()
+    {
+      return this.$store.getters.getCurrentArtist
     }
 
   } 

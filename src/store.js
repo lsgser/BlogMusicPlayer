@@ -41,6 +41,7 @@ state:{
 	membersData:[],
 	navigationName:'',
 	contactInfo:[],
+	currentArtist:'',
 	artistIsLoaded:false,
 	artistDataIsLoaded:false,
 	singleIsLoaded:false,
@@ -572,6 +573,10 @@ mutations:{
 	SET_SONG_SHARE_LOADER(state)
 	{
 		state.songShareIsLoaded = false
+	},
+	SET_CURRENT_ARTIST(state,data)//Setting the artist name for album navigation via the modal
+	{
+		state.currentArtist = data.data[0].artist_name
 	}
 
 },
@@ -622,7 +627,8 @@ getters:{
 	contactIsLoaded:state=>{return state.contactIsLoaded},
 	albumInfoIsLoaded:state=>{return state.albumInfoIsLoaded},
 	songIsLoaded:state=>{return state.songIsLoaded},
-	getSongShareIsLoaded:state=>{return state.songShareIsLoaded}
+	getSongShareIsLoaded:state=>{return state.songShareIsLoaded},
+	getCurrentArtist:state=>{return state.currentArtist}
  },
 actions:{
 	loadData({commit},user){
@@ -674,6 +680,7 @@ actions:{
 				commit('SET_SONG_ID',{song_id:data.id})
 				commit('SET_SONGS',res)
 				commit('SET_TYPE',{type:data.type})
+				commit('SET_CURRENT_ARTIST',res)
 				commit('PLAY_SONG')
 			})
 		}
@@ -734,7 +741,7 @@ actions:{
 		commit('SET_SONG_SHARE_LOADER')
 		
 		axios.get('https://www.6itygang.com/api/view/song/get.php?song='+data.id).then(function(res){
-			console.log(res.data[0])
+			//console.log(res.data[0])
 			commit('SET_SONG',res)
 		})
 	}

@@ -50,7 +50,7 @@
 		},
 		methods:
 		{
-			Send:function(e)
+			Send:function()
 			{
 				this.success = false
 				this.danger = false
