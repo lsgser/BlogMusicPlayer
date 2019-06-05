@@ -10,20 +10,22 @@
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item" v-show="getNavBool">
-        <router-link class="btn btn-outline-light" to="/" @click.native="Main" id="music">Home</router-link>
-      </li>
-      <li class="nav-item" v-show="getNavBool">
-        <router-link class="btn btn-outline-light" to="/music-list" @click.native="Music" id="music">Music</router-link>
-      </li>
-      <!--
-        <li class="nav-item" v-show="getNavBool">
-          <router-link class="nav-link" id="video" to="/videos" @click.native="Videos">Videos</router-link>
+      <div class="d-inline-flex justify-content-center">
+        <li class="nav-item m-1" v-show="getNavBool">
+          <router-link class="btn btn-outline-light" to="/" @click.native="Main" id="music">Home</router-link>
         </li>
-      -->
-      <li class="nav-item">
-        <router-link class="btn btn-outline-light" id="contact" to="/contacts" @click.native="Contacts">Contact Us</router-link>
-      </li>
+        <li class="nav-item m-1" v-show="getNavBool">
+          <router-link class="btn btn-outline-light" to="/music-list" @click.native="Music" id="music">Music</router-link>
+        </li>
+        <!--
+          <li class="nav-item" v-show="getNavBool">
+            <router-link class="nav-link" id="video" to="/videos" @click.native="Videos">Videos</router-link>
+          </li>
+        -->
+        <li class="nav-item m-1">
+          <router-link class="btn btn-outline-light" id="contact" to="/contacts" @click.native="Contacts">Contact</router-link>
+        </li>
+      </div>
     </ul>
   </div>	
 </nav> 
