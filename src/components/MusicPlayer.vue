@@ -34,19 +34,24 @@
   </nav>
   <div class="modal" id="musicModal">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content" style="background-color:#ababab">
 
         <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title">{{getArtist}} - {{getSong}}</h5>
+        <div class="modal-header text-center">
+          <h5 class="modal-title w-100" style="color:white;">{{getArtist}} - {{getSong}}</h5>
+          <!--
+            style="color: rgb(87, 75, 75);"
           <button type="button" class="close" data-dismiss="modal" style="color: black;">&times;</button>
+          -->
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-          <center>
-            <img v-bind:src="getSongCover" class="song-image img-thumbnail" width="400px"  height="400px"/>
-          </center>
+          <div class="container">
+            <center>
+              <img v-bind:src="getSongCover" class="img-thumbnail" width="400px"  height="400px"/>
+            </center>
+          </div>
         </div>
 
         <!-- Modal footer -->

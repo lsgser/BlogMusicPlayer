@@ -220,31 +220,35 @@ mutations:{
 				})
 			}
 			state.audio.play()
-			state.audio.addEventListener('timeupdate',function(){
-				//console.log("EVENT")
-			    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
-			    state.min = parseInt((state.audio.currentTime / 60) % 60);
-			    if (state.sec < 10) {
-			    	state.sec = '0' + state.sec;
-			    }
-			    state.secDuration=parseInt(state.audio.duration%60);
-			    state.minDuration=parseInt((state.audio.duration/60)%60);
-			    if (state.secDuration < 10) 
-			    {
-			    	state.secDuration = '0' + state.secDuration
-			    } 
-			    if (state.audio.currentTime > 0) 
-			    {
-			    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
-			    }
-			    if(state.audio.ended)
-			    {
-			  		state.songID=""
-					state.pausedSong=""
-					state.isPlaying=false
-					//state.audio.pause()  	
-			    }
-			})
+			if(state.audio.duration == 0 || !state.audio.firstPlay)
+			{
+				//console.log('event')
+				state.audio.addEventListener('timeupdate',function(){
+					//console.log("EVENT")
+				    state.sec = parseInt(state.audio.currentTime % 60);//Get hours and minutes
+				    state.min = parseInt((state.audio.currentTime / 60) % 60);
+				    if (state.sec < 10) {
+				    	state.sec = '0' + state.sec;
+				    }
+				    state.secDuration=parseInt(state.audio.duration%60);
+				    state.minDuration=parseInt((state.audio.duration/60)%60);
+				    if (state.secDuration < 10) 
+				    {
+				    	state.secDuration = '0' + state.secDuration
+				    } 
+				    if (state.audio.currentTime > 0) 
+				    {
+				    	state.time = Math.floor((100 / state.audio.duration) * state.audio.currentTime);
+				    }
+				    if(state.audio.ended)
+				    {
+				  		state.songID=""
+						state.pausedSong=""
+						state.isPlaying=false
+						//state.audio.pause()  	
+				    }
+				})
+			}
 		}
 		else//Paused and then resumed
 		{
