@@ -3,7 +3,7 @@
   <!--
   <div>Post: {{ $route.params.name }}</div>
   -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <router-link class="btn btn-outline-light" to="/" @click.native="Home">{{getNavigationName.name.toUpperCase()}}</router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -28,6 +28,10 @@
       </div>
     </ul>
   </div>	
+</nav>
+
+<nav class="navbar fixed-bottom navbar-dark bg-dark text-center" v-show="!getFirstPlay && !isPlaying">
+  <h6 class="navbar-brand m-2 w-100" href="#" style="font-size: 0.9em;color: #ababab;" >6ity Gang &copy; 2019 South Africa</h6>
 </nav> 
 </div>
 </template>
@@ -44,6 +48,14 @@ export default {
     getNavigationName()
     {
       return this.$store.getters.getNavigationName
+    },
+    getFirstPlay()
+    {
+      return this.$store.getters.getFirstPlay
+    },
+    isPlaying()
+    {
+      return this.$store.getters.isPlaying
     }
   },
 	methods:{
