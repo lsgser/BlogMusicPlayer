@@ -50,7 +50,8 @@ state:{
 	contactIsLoaded:false,
 	albumInfoIsLoaded:false,
 	songIsLoaded:false,
-	songShareIsLoaded:false
+	songShareIsLoaded:false,
+	isMobile:false
 },
 mutations:{
 	SET_ALBUMS(state,data)
@@ -581,8 +582,18 @@ mutations:{
 	SET_CURRENT_ARTIST(state,data)//Setting the artist name for album navigation via the modal
 	{
 		state.currentArtist = data.data[0].artist_name
+	},
+	SET_DEVICE(state)//Check if the site is running on a PC or Phone
+	{
+		var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+		if (isMobile) {
+			state.isMobile = true  
+		} 
+		else {
+			state.isMobile = false
+		}
 	}
-
 },
 getters:{
 	getSongs :state => {return state.songs},
@@ -632,7 +643,8 @@ getters:{
 	albumInfoIsLoaded:state=>{return state.albumInfoIsLoaded},
 	songIsLoaded:state=>{return state.songIsLoaded},
 	getSongShareIsLoaded:state=>{return state.songShareIsLoaded},
-	getCurrentArtist:state=>{return state.currentArtist}
+	getCurrentArtist:state=>{return state.currentArtist},
+	isMobile:state=>{return state.isMobile}
  },
 actions:{
 	loadData({commit},user){
@@ -748,6 +760,10 @@ actions:{
 			//console.log(res.data[0])
 			commit('SET_SONG',res)
 		})
+	},
+	getDevice({commit})
+	{
+		commit('SET_DEVICE')
 	}
 }
 })

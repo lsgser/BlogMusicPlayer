@@ -20,6 +20,8 @@
             </a>
           <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+u.artist_name+'&text=Check+out+'+u.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg mr-3" target="_blank"><i class="fab fa-twitter"></i>
           </a>
+          <a v-bind:href="'https://wa.me/?text=Check+out+'+u.artist_name+'%27s+6ity+Gang+page+for+music+on:%0Ahttps://www.6itygang.com/%23/'+u.artist_name" v-show="isMobile" class="btn btn-success btn-lg mr-3" target="_blank"><i class="fab fa-whatsapp"></i>
+          </a>
           <!--
             <a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" class="btn btn-danger btn-lg" target="_blank" data-pin-custom="true"><i class="fab fa-pinterest"></i></a>
           -->
@@ -104,6 +106,10 @@ export default {
     userIsLoaded()
     {
       return this.$store.getters.userIsLoaded
+    },
+    isMobile()
+    {
+      return this.$store.getters.isMobile
     }
   },
   beforeMount:function()
@@ -111,6 +117,7 @@ export default {
     if(this.$route.params.name)
     {
       this.name = this.$route.params.name
+      this.$store.dispatch('getDevice')
       this.$store.dispatch('loadUser',this.name)
       this.$store.dispatch('loadData',this.name)
     }

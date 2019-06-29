@@ -44,4 +44,7 @@ export default {
   }
 }
 
+.whatsapp{
+  border-radius: 0;
+}
 </style>

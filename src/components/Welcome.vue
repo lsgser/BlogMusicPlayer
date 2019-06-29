@@ -35,6 +35,8 @@
             </a>
             <a v-bind:href="'https://twitter.com/share?url=https://www.6itygang.com/%23/'+d.artist_name+'&text=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:&hashtags=6itygang,6ity_gang'" data-show-count="false" class="btn btn-info btn-lg twitter" target="_blank"><i class="fab fa-twitter"></i>
             </a>
+            <a v-bind:href="'https://wa.me/?text=Check+out+'+d.artist_name+'%27s+6ity+Gang+page+for+music+on:%0Ahttps://www.6itygang.com/%23/'+d.artist_name" v-show="isMobile" class="btn btn-success btn-lg whatsapp mt-2" target="_blank"><i class="fab fa-whatsapp"></i>
+            </a>
             <!--
               <button type="button" class="btn btn-secondary btn-lg copy"><i class="far fa-copy"></i></button>
             -->
@@ -92,10 +94,15 @@ export default {
     artistDataIsLoaded()
     {
       return this.$store.getters.artistDataIsLoaded
+    },
+    isMobile()
+    {
+      return this.$store.getters.isMobile
     }
   },
   beforeMount:function()
   {
+    this.$store.dispatch('getDevice')
     this.$store.dispatch('loadWelcomeData')
   },
   data:function()
@@ -114,6 +121,9 @@ export default {
   border-radius: 0;
 }
 
+.whatsapp{
+  border-radius: 0;
+}
 .copy{
   border-radius: 0;
 }
